@@ -1,0 +1,97 @@
+<html>
+<head><meta charset="utf-8"><title>✔ Default library path for `ccall` and `llvmcall` · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html">✔ Default library path for `ccall` and `llvmcall`</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="290693340"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693340" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693340">(Jul 24 2022 at 18:24)</a>:</h4>
+<p>sure, it'd be nice if this whole static compilation wasn't an alien dialect <span aria-label="grimacing" class="emoji emoji-1f62c" role="img" title="grimacing">:grimacing:</span></p>
+
+
+
+<a name="290693349"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693349" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693349">(Jul 24 2022 at 18:24)</a>:</h4>
+<p>So far it seems to be working FWIW! All the usual caveats about no allocations, no dynamic dispatch, etc of course apply, but in HPC obsessively micromanaging your memory is kinda standard anyways... The one thing I'd still like is to intercept errors  and return a custom exit code instead of  having to avoid things that could error altogether.</p>
+
+
+
+<a name="290693362"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693362" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693362">(Jul 24 2022 at 18:25)</a>:</h4>
+<p>BTW, <code>MPI.jl</code> does dlopen libmpi with <code>RTLD_GLOBAL</code> on unix systems: <a href="https://github.com/JuliaParallel/MPI.jl/blob/a8d4d6400d9f91677c72f261ae0eb4db4b04e1b2/src/MPI.jl#L110">https://github.com/JuliaParallel/MPI.jl/blob/a8d4d6400d9f91677c72f261ae0eb4db4b04e1b2/src/MPI.jl#L110</a></p>
+
+
+
+<a name="290693405"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693405" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693405">(Jul 24 2022 at 18:26)</a>:</h4>
+<p>For posterity re the initial question, <code>dlopen</code>  was the key thing I was missing for making the symbols available to be <code>ccall</code>/ <code>llvmcall</code>'d  directly,  while <code>LD_LIBRARY_PATH </code> seems to be what gets used <em>during</em> the <code>dlopen</code> to find <code>libmpi</code> (i.e., if I didn't have <code>/opt/local/lib/mpich-mp</code> (my local MPICH install)  in my <code>LD_LIBRARY_PATH</code> already I think I'd have to write out the full thing in the dlopen above)</p>
+
+
+
+<a name="290693418"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693418" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693418">(Jul 24 2022 at 18:27)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="293896">Brenhin Keller</span> has marked this topic as resolved.</p>
+
+
+
+<a name="290693915"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693915" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693915">(Jul 24 2022 at 18:40)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="293896">Brenhin Keller</span> has marked this topic as unresolved.</p>
+
+
+
+<a name="290693917"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693917" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693917">(Jul 24 2022 at 18:40)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="293896">Brenhin Keller</span> has marked this topic as resolved.</p>
+
+
+
+<a name="290699843"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290699843" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290699843">(Jul 24 2022 at 21:06)</a>:</h4>
+<p>You should be able to just stick the <code>dlopen</code> in your <code>__init__()</code></p>
+
+
+
+<a name="290700125"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290700125" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290700125">(Jul 24 2022 at 21:13)</a>:</h4>
+<p>Ooh, maybe I  should just have <a href="https://github.com/search?q=StaticMPI.jl&amp;type=Repositories">StaticMPI.jl</a> do that by default with MPICH_jll so that people don't  get segfaults when they paste code into the repl without considering the implications  <span aria-label="sweat smile" class="emoji emoji-1f605" role="img" title="sweat smile">:sweat_smile:</span></p>
+
+
+
+<a name="290700188"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290700188" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290700188">(Jul 24 2022 at 21:15)</a>:</h4>
+<p>A tradeoff between convenience and flexibility (if people want to dlopen their cluster's libmpi)</p>
+
+
+
+<a name="290700259"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290700259" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290700259">(Jul 24 2022 at 21:16)</a>:</h4>
+<p>You could make the behaviour depend on an environment variable</p>
+
+
+
+<a name="290701526"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290701526" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Fredrik Ekre <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290701526">(Jul 24 2022 at 21:46)</a>:</h4>
+<p>Could you use MPItrampoline?</p>
+
+
+
+<a name="290701758"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290701758" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290701758">(Jul 24 2022 at 21:52)</a>:</h4>
+<p>Hmm, possibly — I should look into that</p>
+
+
+
+<a name="290710000"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290710000" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290710000">(Jul 25 2022 at 01:28)</a>:</h4>
+<p>Huh, looks like <code>MPItrampoline_jll.is_available() == false</code> on my system.. I wonder how similar the MPItrampoline libmpi interface is to the MPICH one -- since currently I've been targeting that</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

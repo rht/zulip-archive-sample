@@ -1,0 +1,87 @@
+<html>
+<head><meta charset="utf-8"><title>✔ `Type{Type{` showing up in `@generated` function · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html">✔ `Type{Type{` showing up in `@generated` function</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="269342909"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269342909" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Takafumi Arakaki (tkf) <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269342909">(Jan 25 2022 at 23:48)</a>:</h4>
+<p>Ahh... yes, I remember that vararg is a bit weird inside <code>@generated</code>. I'd probably define a function to unwrap the <code>Type</code></p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">julia</span><span class="o">&gt;</span> <span class="nd">@generated</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="k">global</span> <span class="n">XS</span> <span class="o">=</span> <span class="n">xs</span><span class="p">;</span> <span class="nb">nothing</span><span class="p">);</span>
+
+<span class="n">julia</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Nothing</span><span class="p">)</span>
+
+<span class="n">julia</span><span class="o">&gt;</span> <span class="n">XS</span>
+<span class="p">(</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Int64</span><span class="p">},</span> <span class="kt">Type</span><span class="p">{</span><span class="kt">Nothing</span><span class="p">})</span>
+
+<span class="n">julia</span><span class="o">&gt;</span> <span class="n">instanceof</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Type</span><span class="p">{</span><span class="kt">T</span><span class="p">}})</span> <span class="k">where</span> <span class="p">{</span><span class="kt">T</span><span class="p">}</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+
+<span class="n">julia</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">(</span><span class="n">instanceof</span><span class="p">,</span> <span class="n">XS</span><span class="p">)</span>
+<span class="p">(</span><span class="kt">Int64</span><span class="p">,</span> <span class="kt">Nothing</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+<a name="269343580"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269343580" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269343580">(Jan 25 2022 at 23:55)</a>:</h4>
+<p>Yeah, good idea. I'll just build that into <code>Keys</code>.</p>
+
+
+
+<a name="269343742"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269343742" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269343742">(Jan 25 2022 at 23:57)</a>:</h4>
+<p>I was fiddling again today with something <span class="user-mention" data-user-id="278065">@Brian Chen</span> asked about yesterday on Slack, and the part I left as an 'exercise to the reader' was a bit more frustrating than I had anticipated, so here it is in case you want it Brian. A vararg complement to <code>Base.structdiff</code> that isn't slow at runtime: </p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">Keys</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">NamedTuple</span><span class="p">{</span><span class="kt">names</span><span class="p">}})</span> <span class="k">where</span> <span class="p">{</span><span class="kt">names</span><span class="p">}</span> <span class="o">=</span> <span class="n">names</span>
+<span class="n">Keys</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Type</span><span class="p">{</span><span class="kt">T</span><span class="p">}})</span> <span class="k">where</span> <span class="p">{</span><span class="kt">T</span><span class="p">}</span> <span class="o">=</span> <span class="n">Keys</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+<span class="nd">@generated</span> <span class="k">function</span> <span class="n">structintersect</span><span class="p">(</span><span class="n">a</span><span class="o">::</span><span class="kt">NamedTuple</span><span class="p">{</span><span class="kt">an</span><span class="p">},</span> <span class="n">rest</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="kt">NamedTuple</span><span class="p">,</span> <span class="kt">Type</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">NamedTuple</span><span class="p">}}</span><span class="o">...</span><span class="p">)</span> <span class="k">where</span> <span class="p">{</span><span class="kt">an</span><span class="p">}</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="kt">Tuple</span><span class="p">(</span><span class="n">intersect</span><span class="p">(</span><span class="n">an</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="p">(</span><span class="n">rest</span><span class="p">)</span><span class="o">...</span><span class="p">))</span>
+    <span class="n">data</span>  <span class="o">=</span> <span class="kt">Expr</span><span class="p">(</span><span class="ss">:tuple</span><span class="p">,</span> <span class="p">(</span><span class="o">:</span><span class="p">(</span><span class="n">getproperty</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">$</span><span class="p">(</span><span class="kt">QuoteNode</span><span class="p">(</span><span class="n">name</span><span class="p">))))</span> <span class="k">for</span> <span class="n">name</span> <span class="k">in</span> <span class="n">names</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+    <span class="o">:</span><span class="p">(</span><span class="kt">NamedTuple</span><span class="p">{</span><span class="o">$</span><span class="kt">names</span><span class="p">}(</span><span class="o">$</span><span class="n">data</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="n">structintersect</span><span class="p">((;</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="p">(;</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="kt">NamedTuple</span><span class="p">{(</span><span class="ss">:b</span><span class="p">,</span> <span class="ss">:d</span><span class="p">)})</span>
+</code></pre></div>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="c">#+RESULTS:</span>
+<span class="o">:</span> <span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+<a name="269345275"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269345275" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269345275">(Jan 26 2022 at 00:12)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="269150">Mason Protter</span> has marked this topic as resolved.</p>
+
+
+
+<a name="269347640"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269347640" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269347640">(Jan 26 2022 at 00:41)</a>:</h4>
+<p>Think I should bother trying to open a PR to Base with this? I suspect <code>Base.structdiff</code> only exists because they have a need to use it internally</p>
+
+
+
+<a name="269352021"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269352021" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Takafumi Arakaki (tkf) <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269352021">(Jan 26 2022 at 01:39)</a>:</h4>
+<p>It would have been nice if we had a uniform dict/set API so that we could motivate this a bit better as a prerequisite of <code>intersect</code>-on-<code>NamedTuple</code></p>
+
+
+
+<a name="269352086"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269352086" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Takafumi Arakaki (tkf) <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269352086">(Jan 26 2022 at 01:40)</a>:</h4>
+<p>Not that I'm against it or anything. I just don't know if it's OK or not</p>
+
+
+
+<a name="269353825"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20%60Type%7BType%7B%60%20showing%20up%20in%20%60%40generated%60%20function/near/269353825" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20.60Type.7BType.7B.60.20showing.20up.20in.20.60.40generated.60.20function.html#269353825">(Jan 26 2022 at 02:07)</a>:</h4>
+<p>That’s my feeling also.</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

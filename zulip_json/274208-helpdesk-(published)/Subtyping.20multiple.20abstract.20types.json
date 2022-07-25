@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>Say I want to have a type that looks something like</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code>    <span class=\"k\">struct</span> <span class=\"kt\">MyVectorType</span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span> <span class=\"o\">&lt;:</span> <span class=\"kt\">AbstractVector</span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span>\n        <span class=\"n\">pointer</span><span class=\"o\">::</span><span class=\"kt\">Ptr</span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span>\n        <span class=\"n\">length</span><span class=\"o\">::</span><span class=\"kt\">Int</span>\n    <span class=\"k\">end</span>\n</code></pre></div>\n<p>but I <em>also</em> want <code>MyVectorType</code> to be a subtype of <code>MyOtherAbstractTypeForDispatch</code>... </p>\n<p>Can this be done? I haven't seemed to be able to make it work yet</p>",
+        "id": 271755668,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1644772393
+    }
+]

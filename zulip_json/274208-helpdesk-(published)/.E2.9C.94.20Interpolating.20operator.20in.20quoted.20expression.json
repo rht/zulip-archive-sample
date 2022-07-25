@@ -1,0 +1,38 @@
+[
+    {
+        "content": "<p>The way I interpret what you're saying (and this is probably what Gunnar also meant) is that the parser doesn't know what to do with what is essentially <code>:( token1 token2 token3 )</code>, because it doesn't know (yet) that <code>token2</code> is an operator (or function in general).</p>\n<p>Whereas in <code>:( token1 operator token3 )</code> and <code>:( token2(token1, token3 )</code>, it's clear which items are functions. Is that right?</p>",
+        "id": 281081603,
+        "sender_full_name": "mbaz",
+        "timestamp": 1651614415
+    },
+    {
+        "content": "<p>yeah, should serve well enough as a mental model</p>",
+        "id": 281082296,
+        "sender_full_name": "Sukera",
+        "timestamp": 1651614773
+    },
+    {
+        "content": "<p>except for the first one, you can take a look at the difference with <code>Meta.@dump</code></p>",
+        "id": 281082351,
+        "sender_full_name": "Sukera",
+        "timestamp": 1651614815
+    },
+    {
+        "content": "<p>though in this case, you won't see one with <code>+</code> because they parse to the same thing since they're both valid and the first one won't parse at all, because it's not julia code</p>",
+        "id": 281082482,
+        "sender_full_name": "Sukera",
+        "timestamp": 1651614871
+    },
+    {
+        "content": "<p>either way, it depends on what <code>token2</code> _is_ to work, and since only infix operator literals (or non-complex literal interpolations) are allowed there, if the parser (waaaay before lowering or the concept of a \"function\" is a thing) can't tell, you can't do it</p>",
+        "id": 281082781,
+        "sender_full_name": "Sukera",
+        "timestamp": 1651614980
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"345789\">mbaz</span> has marked this topic as resolved.</p>",
+        "id": 281082978,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1651615033
+    }
+]

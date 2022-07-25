@@ -1,0 +1,33 @@
+<html>
+<head><meta charset="utf-8"><title>Nested environments? · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Nested.20environments.3F.html">Nested environments?</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="280274378"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Nested%20environments%3F/near/280274378" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Richard Reeve <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Nested.20environments.3F.html#280274378">(Apr 26 2022 at 21:24)</a>:</h4>
+<p>This seems like an obvious question, but I can't find the answer anywhere. I want to have all of my environments to have <code>Revise</code> installed, but I don't want to have to do that manually because <code>Revise</code> isn't relevant to the specific project - for instance I want to have <code>Revise</code> installed in every environment in every <code>examples</code> folder in every package I write without specifying it. Is there any way of automatically including some environment (i.e. some global <code>Project.toml</code> / <code>Manifest.toml</code>) in any current environment? Or maybe a way of nesting one environment inside another?</p>
+
+
+
+<a name="280277257"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Nested%20environments%3F/near/280277257" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> j-fu <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Nested.20environments.3F.html#280277257">(Apr 26 2022 at 21:53)</a>:</h4>
+<p>These are rather called "stacked" environments. <br>
+See <a href="https://discourse.julialang.org/t/why-not-always-use-revise/64589/6">https://discourse.julialang.org/t/why-not-always-use-revise/64589/6</a></p>
+<p>It should be sufficient to add Revise to the default environment to make it available while activating project and package environments.</p>
+
+
+
+<a name="280278618"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Nested%20environments%3F/near/280278618" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Richard Reeve <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Nested.20environments.3F.html#280278618">(Apr 26 2022 at 22:05)</a>:</h4>
+<p>Thanks. I honestly had no idea that worked after god knows how long using Julia now. I can't help but feel it should be better documented! Presumably it means that I don't know without putting stuff in CI on github whether I've actually put the right dependencies into my project though if Julia automatically pulls things that I have in my global environment into any local environment? Is there anyway of switching it off?</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

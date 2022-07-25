@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>I'm working with a 2.5Gb dataset that is just too large for my computer memory (if I try to put it all in a DataFrame). I was wondering what people in the community use to deal with such scenarios. I mean, I'll use this dataset to do some visualizations, aggregations and prediction models. I've found DTable from <a href=\"https://github.com/search?q=Dagger.jl&amp;type=Repositories\">Dagger.jl</a>, but I'm wondering whether it's robust enough, since it kind of looks new.</p>",
+        "id": 284413930,
+        "sender_full_name": "Davi Sales Barreira",
+        "timestamp": 1653954272
+    }
+]

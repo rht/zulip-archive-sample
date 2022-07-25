@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>Hey everyone, I'd like to know if there is a \"proper\" way of traversing a nested dictionary (json like structure) in order to avoid possible missing keys? For example, I have a dictionary that contains a vector of dictionaries, and some of these have extra \"keys\". Now, I'm iterating over them, and I'd like to check a certain property, for example:</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">for</span> <span class=\"n\">cell</span> <span class=\"k\">in</span> <span class=\"n\">cells</span>\n    <span class=\"k\">if</span> <span class=\"n\">cell</span><span class=\"p\">[</span><span class=\"s\">\"extrakey\"</span><span class=\"p\">]</span> <span class=\"o\">==</span> <span class=\"nb\">true</span>\n      <span class=\"n\">println</span><span class=\"p\">(</span><span class=\"s\">\"ok\"</span><span class=\"p\">)</span>\n    <span class=\"k\">end</span>\n<span class=\"k\">end</span>\n</code></pre></div>\n<p>Since not every dictionary has the extra key, I get an error message. Is there a \"correct\" way of doing such traversing? I could add extra if statements to check the existence of the key, or use a try execption, but I was wondering if there was a \"canonical\" way of doing this.</p>",
+        "id": 258034768,
+        "sender_full_name": "Davi Sales Barreira",
+        "timestamp": 1634566274
+    }
+]

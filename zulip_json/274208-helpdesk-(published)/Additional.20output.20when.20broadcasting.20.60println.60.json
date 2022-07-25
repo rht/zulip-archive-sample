@@ -1,0 +1,20 @@
+[
+    {
+        "content": "<p>Where do these <code>nothing</code>s come from?</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">println</span><span class=\"o\">.</span><span class=\"p\">((</span><span class=\"mi\">1</span><span class=\"p\">,</span><span class=\"mi\">2</span><span class=\"p\">))</span>\n<span class=\"mi\">1</span>\n<span class=\"mi\">2</span>\n<span class=\"p\">(</span><span class=\"nb\">nothing</span><span class=\"p\">,</span> <span class=\"nb\">nothing</span><span class=\"p\">)</span>\n\n<span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">println</span><span class=\"o\">.</span><span class=\"p\">([</span><span class=\"mi\">1</span><span class=\"p\">,</span><span class=\"mi\">2</span><span class=\"p\">])</span>\n<span class=\"mi\">1</span>\n<span class=\"mi\">2</span>\n<span class=\"mi\">2</span><span class=\"o\">-</span><span class=\"n\">element</span> <span class=\"kt\">Vector</span><span class=\"p\">{</span><span class=\"kt\">Nothing</span><span class=\"p\">}</span><span class=\"o\">:</span>\n <span class=\"nb\">nothing</span>\n <span class=\"nb\">nothing</span>\n</code></pre></div>",
+        "id": 281086639,
+        "sender_full_name": "mbaz",
+        "timestamp": 1651616970
+    },
+    {
+        "content": "<p><code>println</code> returns <code>nothing</code></p>",
+        "id": 281087339,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1651617367
+    },
+    {
+        "content": "<p>E.g.</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">println</span><span class=\"p\">(</span><span class=\"n\">“hi”</span><span class=\"p\">)</span> <span class=\"o\">===</span> <span class=\"nb\">nothing</span>\n</code></pre></div>",
+        "id": 281087377,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1651617393
+    }
+]

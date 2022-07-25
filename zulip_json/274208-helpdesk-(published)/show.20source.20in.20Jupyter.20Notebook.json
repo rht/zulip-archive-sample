@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>Here's a quick and dirty <code>@showsource</code> macro I just wrote, to show you some number of lines (that you can specify) starting from the function's beginning: <a href=\"https://gist.github.com/digital-carver/7fec89a2bb19e07066ad64abbb75c870\">https://gist.github.com/digital-carver/7fec89a2bb19e07066ad64abbb75c870</a> (assumes you have <code>head</code> and <code>tail</code> commands available on your system - if on Windows, you can install GNU utilities or find them within your git installation, and add their path to PATH).</p>",
+        "id": 262954821,
+        "sender_full_name": "Sundar R",
+        "timestamp": 1638142740
+    },
+    {
+        "content": "<p>I have an idea for a smarter version that tries to detect the end of the function, but it's pretty late here so that's gonna have to wait till late tomorrow. It'll still be hacky (i.e. based on line patterns rather than source code analysis), but should be good enough for interactive usage.</p>",
+        "id": 262954900,
+        "sender_full_name": "Sundar R",
+        "timestamp": 1638142871
+    }
+]

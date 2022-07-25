@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>How do I adjust a plot so that axis tick labels are e.g. 10,000 instead of 1.0x10^4? My best guess is the <code>ytickformat</code> property of <code>Axis</code>, but the values you can set that paremeter to aren't documented afaict.</p>",
+        "id": 261800178,
+        "sender_full_name": "Adam non-jedi Beckmeyer",
+        "timestamp": 1637162997
+    },
+    {
+        "content": "<p>Of course, I can't actually tell for sure that there's not an example using it since the <a href=\"https://github.com/search?q=Franklin.jl&amp;type=Repositories\">Franklin.jl</a> search function is awful and turns up 0 results in a search for \"tickformat\" despite it clearly being listed as an attribute of Axis...</p>",
+        "id": 261800528,
+        "sender_full_name": "Adam non-jedi Beckmeyer",
+        "timestamp": 1637163121
+    }
+]

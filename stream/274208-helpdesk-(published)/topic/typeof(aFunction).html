@@ -1,0 +1,36 @@
+<html>
+<head><meta charset="utf-8"><title>typeof(aFunction) · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/typeof(aFunction).html">typeof(aFunction)</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="261699841"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/typeof%28aFunction%29/near/261699841" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Peter Goodall <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/typeof(aFunction).html#261699841">(Nov 16 2021 at 20:10)</a>:</h4>
+<p>if I check the type of an identifier which is a function:</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">julia</span><span class="o">&gt;</span> <span class="n">typeof</span><span class="p">(</span><span class="n">zero</span><span class="p">)</span>
+<span class="n">typeof</span><span class="p">(</span><span class="n">zero</span><span class="p">)</span>
+</code></pre></div>
+<p>wouldn't <code>generic function "zero"</code> be more helpful?</p>
+
+
+
+<a name="261699876"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/typeof%28aFunction%29/near/261699876" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sebastian Pfitzner <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/typeof(aFunction).html#261699876">(Nov 16 2021 at 20:10)</a>:</h4>
+<p>but that's not the type</p>
+
+
+
+<a name="261700813"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/typeof%28aFunction%29/near/261700813" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Peter Goodall <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/typeof(aFunction).html#261700813">(Nov 16 2021 at 20:18)</a>:</h4>
+<p>OK - but I feel short-changed by getting <code>typeof(zero)</code> echoed back. I don't think I got any more information...<br>
+if I do <code>methods(zero)</code> I seem to get the full description, but it's more than I need. What should I be asking?</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

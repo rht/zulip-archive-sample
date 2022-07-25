@@ -1,0 +1,80 @@
+[
+    {
+        "content": "<p>I can't find any contradiction in <a href=\"https://docs.julialang.org/en/v1/manual/variables/#Allowed-Variable-Names\">Julia - Allowed Variable Names</a></p>\n<p><code>\\ttzero =  U+1D7F6</code></p>",
+        "id": 261595636,
+        "sender_full_name": "Peter Goodall",
+        "timestamp": 1637035741
+    },
+    {
+        "content": "<p>seems like a parsing error</p>",
+        "id": 261608539,
+        "sender_full_name": "Sukera",
+        "timestamp": 1637050099
+    },
+    {
+        "content": "<p>number-like chars are usually not allowed to start an identifier</p>",
+        "id": 261612231,
+        "sender_full_name": "Sebastian Pfitzner",
+        "timestamp": 1637052969
+    },
+    {
+        "content": "<p>so <code>a𝟶</code> parses fine</p>",
+        "id": 261612248,
+        "sender_full_name": "Sebastian Pfitzner",
+        "timestamp": 1637052987
+    },
+    {
+        "content": "<p>right, <code>\\ttone</code> is not a letter</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"sc\">'𝟷'</span>\n<span class=\"sc\">'𝟷'</span><span class=\"o\">:</span> <span class=\"n\">Unicode</span> <span class=\"n\">U</span><span class=\"o\">+</span><span class=\"mi\">1</span><span class=\"n\">D7F7</span> <span class=\"p\">(</span><span class=\"n\">category</span> <span class=\"n\">Nd</span><span class=\"o\">:</span> <span class=\"kt\">Number</span><span class=\"p\">,</span> <span class=\"n\">decimal</span> <span class=\"n\">digit</span><span class=\"p\">)</span>\n</code></pre></div>",
+        "id": 261612555,
+        "sender_full_name": "Sukera",
+        "timestamp": 1637053173
+    },
+    {
+        "content": "<p>maybe a string macro for creating your \"bitstrings\" is better suited?</p>",
+        "id": 261612741,
+        "sender_full_name": "Sukera",
+        "timestamp": 1637053235
+    },
+    {
+        "content": "<p><span class=\"user-mention\" data-user-id=\"208845\">@Sebastian Pfitzner</span>  That looks like what the parser was complaining about, but the documentation says:</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">Allowed</span> <span class=\"n\">Variable</span> <span class=\"n\">Names</span>\n<span class=\"n\">Variable</span> <span class=\"n\">names</span> <span class=\"n\">must</span> <span class=\"k\">begin</span> <span class=\"n\">with</span> <span class=\"n\">a</span> <span class=\"n\">letter</span> <span class=\"p\">(</span><span class=\"n\">A</span><span class=\"o\">-</span><span class=\"n\">Z</span> <span class=\"n\">or</span> <span class=\"n\">a</span><span class=\"o\">-</span><span class=\"n\">z</span><span class=\"p\">),</span> <span class=\"n\">underscore</span><span class=\"p\">,</span> <span class=\"n\">or</span> <span class=\"n\">a</span> <span class=\"n\">subset</span> <span class=\"n\">of</span> <span class=\"n\">Unicode</span> <span class=\"n\">code</span> <span class=\"n\">points</span> <span class=\"n\">greater</span> <span class=\"n\">than</span> <span class=\"mi\">00</span><span class=\"n\">A0</span>\n</code></pre></div>\n<p>And then (IMHO) it mumbles a bit...</p>",
+        "id": 261685966,
+        "sender_full_name": "Peter Goodall",
+        "timestamp": 1637087641
+    },
+    {
+        "content": "<p>It does say \"Subsequent characters may also include ! and digits (0-9 and other characters in categories Nd/No)\", which kinda implies that those are not allowed at the start</p>",
+        "id": 261686128,
+        "sender_full_name": "Sebastian Pfitzner",
+        "timestamp": 1637087690
+    },
+    {
+        "content": "<p>My lack of unicode experience is showing...  <em>Unicode Categories</em> are now decrypted for me.<br>\n<a href=\"https://www.compart.com/en/unicode/category/Nd\">List of Unicode Characters of Category “Decimal Number”</a></p>",
+        "id": 261686566,
+        "sender_full_name": "Peter Goodall",
+        "timestamp": 1637087880
+    },
+    {
+        "content": "<p>Sort of happy with this:</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"o\">&gt;</span> <span class=\"nd\">@enum</span> <span class=\"n\">𝔹</span> <span class=\"n\">zero</span> <span class=\"n\">one</span>\n\n<span class=\"o\">&gt;</span> <span class=\"o\">⊻</span><span class=\"p\">(</span><span class=\"n\">a</span><span class=\"o\">::</span><span class=\"kt\">𝔹</span><span class=\"p\">,</span> <span class=\"n\">b</span><span class=\"o\">::</span><span class=\"kt\">𝔹</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"n\">a</span> <span class=\"o\">==</span> <span class=\"n\">b</span> <span class=\"o\">?</span> <span class=\"n\">zero</span> <span class=\"o\">:</span> <span class=\"n\">one</span>\n<span class=\"o\">⊻</span> <span class=\"p\">(</span><span class=\"n\">generic</span> <span class=\"k\">function</span> <span class=\"n\">with</span> <span class=\"mi\">1</span> <span class=\"n\">method</span><span class=\"p\">)</span>\n\n<span class=\"o\">&gt;</span> <span class=\"nd\">@show</span> <span class=\"p\">(</span><span class=\"n\">zero</span> <span class=\"o\">⊻</span> <span class=\"n\">one</span><span class=\"p\">,</span> <span class=\"n\">one</span> <span class=\"o\">⊻</span> <span class=\"n\">one</span><span class=\"p\">)</span>\n<span class=\"p\">(</span><span class=\"n\">zero</span> <span class=\"o\">⊻</span> <span class=\"n\">one</span><span class=\"p\">,</span> <span class=\"n\">one</span> <span class=\"o\">⊻</span> <span class=\"n\">one</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"p\">(</span><span class=\"n\">one</span><span class=\"p\">,</span> <span class=\"n\">zero</span><span class=\"p\">)</span>\n</code></pre></div>",
+        "id": 261687267,
+        "sender_full_name": "Peter Goodall",
+        "timestamp": 1637088158
+    },
+    {
+        "content": "<p>you're kind of punning the functions <code>zero</code> and <code>one</code> though</p>",
+        "id": 261688887,
+        "sender_full_name": "Sukera",
+        "timestamp": 1637088858
+    },
+    {
+        "content": "<p>julia is very unicode aware</p>",
+        "id": 261688995,
+        "sender_full_name": "Sukera",
+        "timestamp": 1637088905
+    },
+    {
+        "content": "<p><span class=\"user-mention\" data-user-id=\"306754\">@Sukera</span> </p>\n<blockquote>\n<p>you're kind of punning the functions <code>zero</code> and <code>one</code> though</p>\n</blockquote>\n<p>I'm not sure what you mean by functions. I thought I was defining a data-type with two elements <code>zero</code> and <code>one</code>,  which I am giving behavior by defining the function <code>⊻</code>. </p>\n<p>Cheers...</p>",
+        "id": 261695846,
+        "sender_full_name": "Peter Goodall",
+        "timestamp": 1637091771
+    }
+]

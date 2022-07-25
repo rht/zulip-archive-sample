@@ -1,0 +1,50 @@
+[
+    {
+        "content": "<p>Ahh... yes, I remember that vararg is a bit weird inside <code>@generated</code>. I'd probably define a function to unwrap the <code>Type</code></p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"nd\">@generated</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">xs</span><span class=\"o\">...</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"p\">(</span><span class=\"k\">global</span> <span class=\"n\">XS</span> <span class=\"o\">=</span> <span class=\"n\">xs</span><span class=\"p\">;</span> <span class=\"nb\">nothing</span><span class=\"p\">);</span>\n\n<span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"kt\">Int</span><span class=\"p\">,</span> <span class=\"kt\">Nothing</span><span class=\"p\">)</span>\n\n<span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">XS</span>\n<span class=\"p\">(</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Int64</span><span class=\"p\">},</span> <span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Nothing</span><span class=\"p\">})</span>\n\n<span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">instanceof</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}})</span> <span class=\"k\">where</span> <span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span> <span class=\"o\">=</span> <span class=\"n\">T</span><span class=\"p\">;</span>\n\n<span class=\"n\">julia</span><span class=\"o\">&gt;</span> <span class=\"n\">map</span><span class=\"p\">(</span><span class=\"n\">instanceof</span><span class=\"p\">,</span> <span class=\"n\">XS</span><span class=\"p\">)</span>\n<span class=\"p\">(</span><span class=\"kt\">Int64</span><span class=\"p\">,</span> <span class=\"kt\">Nothing</span><span class=\"p\">)</span>\n</code></pre></div>",
+        "id": 269342909,
+        "sender_full_name": "Takafumi Arakaki (tkf)",
+        "timestamp": 1643154502
+    },
+    {
+        "content": "<p>Yeah, good idea. I'll just build that into <code>Keys</code>.</p>",
+        "id": 269343580,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1643154955
+    },
+    {
+        "content": "<p>I was fiddling again today with something <span class=\"user-mention\" data-user-id=\"278065\">@Brian Chen</span> asked about yesterday on Slack, and the part I left as an 'exercise to the reader' was a bit more frustrating than I had anticipated, so here it is in case you want it Brian. A vararg complement to <code>Base.structdiff</code> that isn't slow at runtime: </p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"n\">Keys</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"o\">&lt;:</span><span class=\"kt\">NamedTuple</span><span class=\"p\">{</span><span class=\"kt\">names</span><span class=\"p\">}})</span> <span class=\"k\">where</span> <span class=\"p\">{</span><span class=\"kt\">names</span><span class=\"p\">}</span> <span class=\"o\">=</span> <span class=\"n\">names</span>\n<span class=\"n\">Keys</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}})</span> <span class=\"k\">where</span> <span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span> <span class=\"o\">=</span> <span class=\"n\">Keys</span><span class=\"p\">(</span><span class=\"n\">T</span><span class=\"p\">)</span>\n\n<span class=\"nd\">@generated</span> <span class=\"k\">function</span> <span class=\"n\">structintersect</span><span class=\"p\">(</span><span class=\"n\">a</span><span class=\"o\">::</span><span class=\"kt\">NamedTuple</span><span class=\"p\">{</span><span class=\"kt\">an</span><span class=\"p\">},</span> <span class=\"n\">rest</span><span class=\"o\">::</span><span class=\"kt\">Union</span><span class=\"p\">{</span><span class=\"kt\">NamedTuple</span><span class=\"p\">,</span> <span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"o\">&lt;:</span><span class=\"kt\">NamedTuple</span><span class=\"p\">}}</span><span class=\"o\">...</span><span class=\"p\">)</span> <span class=\"k\">where</span> <span class=\"p\">{</span><span class=\"kt\">an</span><span class=\"p\">}</span>\n    <span class=\"n\">names</span> <span class=\"o\">=</span> <span class=\"kt\">Tuple</span><span class=\"p\">(</span><span class=\"n\">intersect</span><span class=\"p\">(</span><span class=\"n\">an</span><span class=\"p\">,</span> <span class=\"n\">Keys</span><span class=\"o\">.</span><span class=\"p\">(</span><span class=\"n\">rest</span><span class=\"p\">)</span><span class=\"o\">...</span><span class=\"p\">))</span>\n    <span class=\"n\">data</span>  <span class=\"o\">=</span> <span class=\"kt\">Expr</span><span class=\"p\">(</span><span class=\"ss\">:tuple</span><span class=\"p\">,</span> <span class=\"p\">(</span><span class=\"o\">:</span><span class=\"p\">(</span><span class=\"n\">getproperty</span><span class=\"p\">(</span><span class=\"n\">a</span><span class=\"p\">,</span> <span class=\"o\">$</span><span class=\"p\">(</span><span class=\"kt\">QuoteNode</span><span class=\"p\">(</span><span class=\"n\">name</span><span class=\"p\">))))</span> <span class=\"k\">for</span> <span class=\"n\">name</span> <span class=\"k\">in</span> <span class=\"n\">names</span><span class=\"p\">)</span><span class=\"o\">...</span><span class=\"p\">)</span>\n    <span class=\"o\">:</span><span class=\"p\">(</span><span class=\"kt\">NamedTuple</span><span class=\"p\">{</span><span class=\"o\">$</span><span class=\"kt\">names</span><span class=\"p\">}(</span><span class=\"o\">$</span><span class=\"n\">data</span><span class=\"p\">))</span>\n<span class=\"k\">end</span>\n\n<span class=\"n\">structintersect</span><span class=\"p\">((;</span><span class=\"n\">a</span><span class=\"o\">=</span><span class=\"mi\">1</span><span class=\"p\">,</span> <span class=\"n\">b</span><span class=\"o\">=</span><span class=\"mi\">2</span><span class=\"p\">,</span> <span class=\"n\">c</span><span class=\"o\">=</span><span class=\"mi\">3</span><span class=\"p\">,</span> <span class=\"n\">d</span><span class=\"o\">=</span><span class=\"mi\">4</span><span class=\"p\">),</span> <span class=\"p\">(;</span><span class=\"n\">b</span><span class=\"o\">=</span><span class=\"mi\">1</span><span class=\"p\">,</span> <span class=\"n\">c</span><span class=\"o\">=</span><span class=\"mi\">3</span><span class=\"p\">,</span> <span class=\"n\">d</span><span class=\"o\">=</span><span class=\"mi\">4</span><span class=\"p\">),</span> <span class=\"kt\">NamedTuple</span><span class=\"p\">{(</span><span class=\"ss\">:b</span><span class=\"p\">,</span> <span class=\"ss\">:d</span><span class=\"p\">)})</span>\n</code></pre></div>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"c\">#+RESULTS:</span>\n<span class=\"o\">:</span> <span class=\"p\">(</span><span class=\"n\">b</span> <span class=\"o\">=</span> <span class=\"mi\">2</span><span class=\"p\">,</span> <span class=\"n\">d</span> <span class=\"o\">=</span> <span class=\"mi\">4</span><span class=\"p\">)</span>\n</code></pre></div>",
+        "id": 269343742,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1643155072
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"269150\">Mason Protter</span> has marked this topic as resolved.</p>",
+        "id": 269345275,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1643155945
+    },
+    {
+        "content": "<p>Think I should bother trying to open a PR to Base with this? I suspect <code>Base.structdiff</code> only exists because they have a need to use it internally</p>",
+        "id": 269347640,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1643157701
+    },
+    {
+        "content": "<p>It would have been nice if we had a uniform dict/set API so that we could motivate this a bit better as a prerequisite of <code>intersect</code>-on-<code>NamedTuple</code></p>",
+        "id": 269352021,
+        "sender_full_name": "Takafumi Arakaki (tkf)",
+        "timestamp": 1643161171
+    },
+    {
+        "content": "<p>Not that I'm against it or anything. I just don't know if it's OK or not</p>",
+        "id": 269352086,
+        "sender_full_name": "Takafumi Arakaki (tkf)",
+        "timestamp": 1643161210
+    },
+    {
+        "content": "<p>That’s my feeling also.</p>",
+        "id": 269353825,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1643162850
+    }
+]

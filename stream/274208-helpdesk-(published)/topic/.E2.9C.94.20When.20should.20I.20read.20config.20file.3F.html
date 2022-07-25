@@ -1,0 +1,50 @@
+<html>
+<head><meta charset="utf-8"><title>✔ When should I read config file? · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html">✔ When should I read config file?</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="272785169"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20When%20should%20I%20read%20config%20file%3F/near/272785169" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html#272785169">(Feb 22 2022 at 10:38)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="272771">Andrey Oskin</span> has marked this topic as resolved.</p>
+
+
+
+<a name="272825470"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20When%20should%20I%20read%20config%20file%3F/near/272825470" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Felix Kastner <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html#272825470">(Feb 22 2022 at 16:11)</a>:</h4>
+<p>You can have preferences stored in your default environments Project.toml or a LocalPreferences.toml at the same location. The only drawback is that the package for which you want to record preferences has to be added to that environment.<br>
+So</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">using</span> <span class="n">Preferences</span>
+<span class="k">using</span> <span class="n">Example</span>
+<span class="n">set_preferences!</span><span class="p">(</span><span class="n">Example</span><span class="p">,</span> <span class="s">"foo"</span> <span class="o">=&gt;</span> <span class="s">"bar"</span><span class="p">)</span>
+</code></pre></div>
+<p>stores it in ~/.julia/environments/v1.7/LocalPreferences.toml.<br>
+This can then be loaded using <code>load_preference(Example, "foo")</code> which will traverse the LOAD_PATH to look for stored preferences.</p>
+
+
+
+<a name="272831965"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20When%20should%20I%20read%20config%20file%3F/near/272831965" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Andrey Oskin <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html#272831965">(Feb 22 2022 at 16:52)</a>:</h4>
+<p>It will read from <code>~/.julia/environments/v1.7/LocalPreferences.toml</code> even when I start Julia with <code>--project=.</code> flag? It's going hierarchically? If it can't find local preferences in current directory it will read from global? If yes, it can make this approach more interesting (of course min 1.6 is still a huge drawback)</p>
+
+
+
+<a name="272832085"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20When%20should%20I%20read%20config%20file%3F/near/272832085" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Andrey Oskin <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html#272832085">(Feb 22 2022 at 16:52)</a>:</h4>
+<p>I guess I should just try it and see how it goes.</p>
+
+
+
+<a name="272832169"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20When%20should%20I%20read%20config%20file%3F/near/272832169" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Fredrik Ekre <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20When.20should.20I.20read.20config.20file.3F.html#272832169">(Feb 22 2022 at 16:53)</a>:</h4>
+<p>Yes, that should work. Since Julia versions &lt; 1.6 are not supported versions anymore I don't think it is a drawback really.</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

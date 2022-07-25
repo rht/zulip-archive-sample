@@ -1,0 +1,31 @@
+<html>
+<head><meta charset="utf-8"><title>Jupyter Notebook · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Jupyter.20Notebook.html">Jupyter Notebook</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="262951352"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Jupyter%20Notebook/near/262951352" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Gary Lai <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Jupyter.20Notebook.html#262951352">(Nov 28 2021 at 22:14)</a>:</h4>
+<p>Hi everyone, I'm just starting to learn Julia (coming from the Python deep learning world). I was wondering if there's an equivalent of <code>??</code> (for showing current function's source code) when working with Julia in Jupyter Notebooks. I tried <code>@code_string</code> from the "CodeTracking" package but it doesn't always work. I also tried the <code>@less</code>macro but it always shows me the entire module instead of just the current function.</p>
+
+
+
+<a name="262952390"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Jupyter%20Notebook/near/262952390" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sundar R <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Jupyter.20Notebook.html#262952390">(Nov 28 2021 at 22:40)</a>:</h4>
+<p>There's been an <a href="https://github.com/JuliaLang/julia/issues/2625">open issue</a> about this for several yaers, the CodeTracking package seems to be the current recommendation there. Does it not reliably work even with <a href="https://github.com/search?q=Revise.jl&amp;type=Repositories">Revise.jl</a> loaded too? I haven't used it since I don't use a notebook much.</p>
+
+
+
+<a name="262952449"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Jupyter%20Notebook/near/262952449" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sundar R <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Jupyter.20Notebook.html#262952449">(Nov 28 2021 at 22:42)</a>:</h4>
+<p>There's also the <code>@edit</code> macro, in case you weren't aware - which also loads the entire file, but in an external editor, so it might be easier to navigate.</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

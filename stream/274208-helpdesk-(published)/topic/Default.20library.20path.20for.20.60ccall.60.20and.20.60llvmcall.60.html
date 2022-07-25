@@ -1,0 +1,135 @@
+<html>
+<head><meta charset="utf-8"><title>Default library path for `ccall` and `llvmcall` · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html">Default library path for `ccall` and `llvmcall`</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="290691913"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290691913" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290691913">(Jul 24 2022 at 17:47)</a>:</h4>
+<p>Say I write something like</p>
+<div class="codehilite" data-code-language="Julia console"><pre><span></span><code><span class="gp">julia&gt;</span><span class="w"> </span><span class="k">ccall</span><span class="p">(</span><span class="ss">:printf</span><span class="p">,</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">Cstring</span><span class="p">,),</span><span class="w"> </span><span class="s">"hello there!</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="w"></span>
+<span class="go">hello there!</span>
+<span class="go">13</span>
+</code></pre></div>
+<p>i,e,. without explicitly specifying a path to a library… what determines the default set of paths Julia will search for the <code>printf </code>function?</p>
+
+
+
+<a name="290691959"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290691959" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290691959">(Jul 24 2022 at 17:48)</a>:</h4>
+<p>(x-posted on slack, will update either if I get an answer)</p>
+
+
+
+<a name="290692251"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692251" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sukera <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692251">(Jul 24 2022 at 17:56)</a>:</h4>
+<p>it should check the usual library paths, since iirc it just delegates that to <code>dlsym</code></p>
+
+
+
+<a name="290692258"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692258" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sukera <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692258">(Jul 24 2022 at 17:56)</a>:</h4>
+<p>or <code>LD_LIBRARY_PATH</code> on linux, or the other usual places for libraries, which is system dependent</p>
+
+
+
+<a name="290692261"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692261" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sukera <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692261">(Jul 24 2022 at 17:56)</a>:</h4>
+<p>e.g. Windows also checks the current directory, IIRC</p>
+
+
+
+<a name="290692269"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692269" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692269">(Jul 24 2022 at 17:57)</a>:</h4>
+<p>Symbols in libraries dlopened with RTLD_GLOBAL are available without specifying the library (which is also a good way to get clashes between different libraries providing same symbols)</p>
+
+
+
+<a name="290692706"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692706" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692706">(Jul 24 2022 at 18:08)</a>:</h4>
+<p>Oh cool</p>
+
+
+
+<a name="290692788"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692788" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692788">(Jul 24 2022 at 18:10)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="306754">Sukera</span> <a href="#narrow/stream/274208-helpdesk-.28published.29/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60/near/290692258">said</a>:</p>
+<blockquote>
+<p>or <code>LD_LIBRARY_PATH</code> on linux, or the other usual places for libraries, which is system dependent</p>
+</blockquote>
+<p>I'm not sure this is relevant.  the library must be already dlopened in order to call a symbol without specifying the path, it isn't like <code>ccall</code> starts randomly dlopening all possible libraries it can find in <code>LD_LIBRARY_PATH</code></p>
+
+
+
+<a name="290692947"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290692947" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290692947">(Jul 24 2022 at 18:14)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="269186">Mosè Giordano</span> <a href="#narrow/stream/274208-helpdesk-.28published.29/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60/near/290692269">said</a>:</p>
+<blockquote>
+<p>Symbols in libraries dlopened with RTLD_GLOBAL are available without specifying the library (which is also a good way to get clashes between different libraries providing same symbols)</p>
+</blockquote>
+<p>example:</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">shell</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">foo</span><span class="o">.</span><span class="n">c</span><span class="w"></span>
+<span class="n">int</span><span class="w"> </span><span class="n">bar</span><span class="p">(</span><span class="n">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">shell</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cc</span><span class="w"> </span><span class="o">-</span><span class="n">shared</span><span class="w"> </span><span class="o">-</span><span class="n">fPIC</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">libfoo</span><span class="o">.</span><span class="n">so</span><span class="w"> </span><span class="n">foo</span><span class="o">.</span><span class="n">c</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Libdl</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dlopen</span><span class="p">(</span><span class="s">"./libfoo.so"</span><span class="p">,</span><span class="w"> </span><span class="n">RTLD_GLOBAL</span><span class="p">)</span><span class="w"></span>
+<span class="kt">Ptr</span><span class="p">{</span><span class="kt">Nothing</span><span class="p">}</span><span class="w"> </span><span class="err">@</span><span class="mh">0x0000000002aa3fd0</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="nd">@ccall</span><span class="w"> </span><span class="n">bar</span><span class="p">()</span><span class="o">::</span><span class="kt">Cint</span><span class="w"></span>
+<span class="mi">42</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">%</span><span class="w"> </span><span class="n">julia</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"></span>
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Libdl</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dlopen</span><span class="p">(</span><span class="s">"./libfoo.so"</span><span class="p">)</span><span class="w"></span>
+<span class="kt">Ptr</span><span class="p">{</span><span class="kt">Nothing</span><span class="p">}</span><span class="w"> </span><span class="err">@</span><span class="mh">0x0000000000faf670</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="nd">@ccall</span><span class="w"> </span><span class="n">bar</span><span class="p">()</span><span class="o">::</span><span class="kt">Cint</span><span class="w"></span>
+<span class="n">ERROR</span><span class="o">:</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">load</span><span class="w"> </span><span class="n">symbol</span><span class="w"> </span><span class="s">"bar"</span><span class="o">:</span><span class="w"></span>
+<span class="n">julia</span><span class="o">:</span><span class="w"> </span><span class="n">undefined</span><span class="w"> </span><span class="n">symbol</span><span class="o">:</span><span class="w"> </span><span class="n">bar</span><span class="w"></span>
+<span class="n">Stacktrace</span><span class="o">:</span><span class="w"></span>
+<span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">top</span><span class="o">-</span><span class="n">level</span><span class="w"> </span><span class="n">scope</span><span class="w"></span>
+<span class="w">   </span><span class="err">@</span><span class="w"> </span><span class="o">./</span><span class="n">REPL</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">:</span><span class="mi">1</span><span class="w"></span>
+</code></pre></div>
+
+
+
+<a name="290693126"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693126" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brenhin Keller <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693126">(Jul 24 2022 at 18:19)</a>:</h4>
+<p>Success! <span aria-label="tada" class="emoji emoji-1f389" role="img" title="tada">:tada:</span> </p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Libdl</span><span class="p">,</span><span class="w"> </span><span class="n">StaticMPI</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dlopen</span><span class="p">(</span><span class="s">"libmpi"</span><span class="p">,</span><span class="w"> </span><span class="n">RTLD_GLOBAL</span><span class="p">)</span><span class="w"></span>
+<span class="kt">Ptr</span><span class="p">{</span><span class="kt">Nothing</span><span class="p">}</span><span class="w"> </span><span class="err">@</span><span class="mh">0x00007ff9385475a0</span><span class="w"></span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">MPI_Init</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MPI_SUCCESS</span><span class="w"></span>
+<span class="nb">true</span><span class="w"></span>
+</code></pre></div>
+
+
+
+<a name="290693256"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693256" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mosè Giordano <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693256">(Jul 24 2022 at 18:22)</a>:</h4>
+<p>I must say I'm quite interested in the possibility of having a standalone MPI application written in julia.  on Fugaku I had lots of jobs dying because the system couldn't load a random library, especially in large jobs (~400 nodes, which they actually still call "small" jobs)</p>
+
+
+
+<a name="290693288"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Default%20library%20path%20for%20%60ccall%60%20and%20%60llvmcall%60/near/290693288" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sukera <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Default.20library.20path.20for.20.60ccall.60.20and.20.60llvmcall.60.html#290693288">(Jul 24 2022 at 18:23)</a>:</h4>
+<p>just would be nice if it were the regular <code>MPI</code> package :/</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

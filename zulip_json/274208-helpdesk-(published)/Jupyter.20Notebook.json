@@ -1,0 +1,20 @@
+[
+    {
+        "content": "<p>Hi everyone, I'm just starting to learn Julia (coming from the Python deep learning world). I was wondering if there's an equivalent of <code>??</code> (for showing current function's source code) when working with Julia in Jupyter Notebooks. I tried <code>@code_string</code> from the \"CodeTracking\" package but it doesn't always work. I also tried the <code>@less</code>macro but it always shows me the entire module instead of just the current function.</p>",
+        "id": 262951352,
+        "sender_full_name": "Gary Lai",
+        "timestamp": 1638137670
+    },
+    {
+        "content": "<p>There's been an <a href=\"https://github.com/JuliaLang/julia/issues/2625\">open issue</a> about this for several yaers, the CodeTracking package seems to be the current recommendation there. Does it not reliably work even with <a href=\"https://github.com/search?q=Revise.jl&amp;type=Repositories\">Revise.jl</a> loaded too? I haven't used it since I don't use a notebook much.</p>",
+        "id": 262952390,
+        "sender_full_name": "Sundar R",
+        "timestamp": 1638139242
+    },
+    {
+        "content": "<p>There's also the <code>@edit</code> macro, in case you weren't aware - which also loads the entire file, but in an external editor, so it might be easier to navigate.</p>",
+        "id": 262952449,
+        "sender_full_name": "Sundar R",
+        "timestamp": 1638139355
+    }
+]

@@ -1,0 +1,81 @@
+<html>
+<head><meta charset="utf-8"><title>Dispatching on ScientificTypes · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html">Dispatching on ScientificTypes</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="269161513"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269161513" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Davi Sales Barreira <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269161513">(Jan 24 2022 at 19:39)</a>:</h4>
+<p>Does anybody knows if it's possible to somehow dispatch with <a href="https://github.com/search?q=ScientificTypes.jl&amp;type=Repositories">ScientificTypes.jl</a>?  I mean, I wanted to do something like <code>function dosomething(x::Continuous)</code>, which does not work.</p>
+
+
+
+<a name="269161846"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269161846" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269161846">(Jan 24 2022 at 19:42)</a>:</h4>
+<p>It is possible and we use it in downstream packages. What exactly are you trying to achieve with dispatch?</p>
+
+
+
+<a name="269161945"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269161945" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269161945">(Jan 24 2022 at 19:42)</a>:</h4>
+<p>You can find examples of dispatch in <a href="https://github.com/search?q=TableDistances.jl&amp;type=Repositories">TableDistances.jl</a>: <a href="https://github.com/JuliaML/TableDistances.jl/blob/deaf10257ce1de34137ad7829391b8bf22817746/src/distances.jl#L27-L32">https://github.com/JuliaML/TableDistances.jl/blob/deaf10257ce1de34137ad7829391b8bf22817746/src/distances.jl#L27-L32</a></p>
+
+
+
+<a name="269162037"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269162037" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Expanding Man <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269162037">(Jan 24 2022 at 19:43)</a>:</h4>
+<p>You can do it with separate arguments, e.g.</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Continuous</span><span class="p">},</span> <span class="n">x</span><span class="o">::</span><span class="kt">Real</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Count</span><span class="p">},</span> <span class="n">x</span><span class="o">::</span><span class="kt">Real</span><span class="p">)</span>
+<span class="k">end</span>
+
+
+<span class="n">f</span><span class="p">(</span><span class="n">elscitype</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+
+
+
+<a name="269162351"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269162351" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Davi Sales Barreira <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269162351">(Jan 24 2022 at 19:45)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="273172">Júlio Hoffimann</span> <a href="#narrow/stream/274208-helpdesk-.28published.29/topic/Dispatching.20on.20ScientificTypes/near/269161846">said</a>:</p>
+<blockquote>
+<p>It is possible and we use it in downstream packages. What exactly are you trying to achieve with dispatch?</p>
+</blockquote>
+<p>I'm coding a plotting package, and I was using it to infer the datatype as Ordinal, Continuous or Nominal (per VegaLite standards.</p>
+
+
+
+<a name="269162482"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269162482" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269162482">(Jan 24 2022 at 19:46)</a>:</h4>
+<p>Would love to see plot recipes all taking scitypes into account. That has been a dream of mine for a while.</p>
+
+
+
+<a name="269162498"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/Dispatching%20on%20ScientificTypes/near/269162498" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Mason Protter <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/Dispatching.20on.20ScientificTypes.html#269162498">(Jan 24 2022 at 19:46)</a>:</h4>
+<p>This is known as trait based dispatch.</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">using</span> <span class="n">ScientificTypes</span>
+
+<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">scitype</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Continuous</span><span class="p">},</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Type</span><span class="p">{</span><span class="kt">Count</span><span class="p">},</span> <span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="codehilite" data-code-language="Julia console"><pre><span></span><code><span class="gp">julia&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">2.0</span>
+
+<span class="gp">julia&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">0</span>
+</code></pre></div>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

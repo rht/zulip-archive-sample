@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>what's the correct way to unzip <code>file.csv.gz</code> and save it to <code>file.csv</code> in Julia? I don't want to use gunzip from terminal. Want to automate this with Julia for quite a few files</p>",
+        "id": 262418761,
+        "sender_full_name": "Abhimanyu Aryan",
+        "timestamp": 1637650283
+    }
+]

@@ -1,0 +1,86 @@
+[
+    {
+        "content": "<p>sure, it'd be nice if this whole static compilation wasn't an alien dialect <span aria-label=\"grimacing\" class=\"emoji emoji-1f62c\" role=\"img\" title=\"grimacing\">:grimacing:</span></p>",
+        "id": 290693340,
+        "sender_full_name": "Mosè Giordano",
+        "timestamp": 1658687050
+    },
+    {
+        "content": "<p>So far it seems to be working FWIW! All the usual caveats about no allocations, no dynamic dispatch, etc of course apply, but in HPC obsessively micromanaging your memory is kinda standard anyways... The one thing I'd still like is to intercept errors  and return a custom exit code instead of  having to avoid things that could error altogether.</p>",
+        "id": 290693349,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658687090
+    },
+    {
+        "content": "<p>BTW, <code>MPI.jl</code> does dlopen libmpi with <code>RTLD_GLOBAL</code> on unix systems: <a href=\"https://github.com/JuliaParallel/MPI.jl/blob/a8d4d6400d9f91677c72f261ae0eb4db4b04e1b2/src/MPI.jl#L110\">https://github.com/JuliaParallel/MPI.jl/blob/a8d4d6400d9f91677c72f261ae0eb4db4b04e1b2/src/MPI.jl#L110</a></p>",
+        "id": 290693362,
+        "sender_full_name": "Mosè Giordano",
+        "timestamp": 1658687149
+    },
+    {
+        "content": "<p>For posterity re the initial question, <code>dlopen</code>  was the key thing I was missing for making the symbols available to be <code>ccall</code>/ <code>llvmcall</code>'d  directly,  while <code>LD_LIBRARY_PATH </code> seems to be what gets used <em>during</em> the <code>dlopen</code> to find <code>libmpi</code> (i.e., if I didn't have <code>/opt/local/lib/mpich-mp</code> (my local MPICH install)  in my <code>LD_LIBRARY_PATH</code> already I think I'd have to write out the full thing in the dlopen above)</p>",
+        "id": 290693405,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658687202
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"293896\">Brenhin Keller</span> has marked this topic as resolved.</p>",
+        "id": 290693418,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1658687250
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"293896\">Brenhin Keller</span> has marked this topic as unresolved.</p>",
+        "id": 290693915,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1658688015
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"293896\">Brenhin Keller</span> has marked this topic as resolved.</p>",
+        "id": 290693917,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1658688017
+    },
+    {
+        "content": "<p>You should be able to just stick the <code>dlopen</code> in your <code>__init__()</code></p>",
+        "id": 290699843,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1658696806
+    },
+    {
+        "content": "<p>Ooh, maybe I  should just have <a href=\"https://github.com/search?q=StaticMPI.jl&amp;type=Repositories\">StaticMPI.jl</a> do that by default with MPICH_jll so that people don't  get segfaults when they paste code into the repl without considering the implications  <span aria-label=\"sweat smile\" class=\"emoji emoji-1f605\" role=\"img\" title=\"sweat smile\">:sweat_smile:</span></p>",
+        "id": 290700125,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658697234
+    },
+    {
+        "content": "<p>A tradeoff between convenience and flexibility (if people want to dlopen their cluster's libmpi)</p>",
+        "id": 290700188,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658697307
+    },
+    {
+        "content": "<p>You could make the behaviour depend on an environment variable</p>",
+        "id": 290700259,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1658697384
+    },
+    {
+        "content": "<p>Could you use MPItrampoline?</p>",
+        "id": 290701526,
+        "sender_full_name": "Fredrik Ekre",
+        "timestamp": 1658699199
+    },
+    {
+        "content": "<p>Hmm, possibly — I should look into that</p>",
+        "id": 290701758,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658699559
+    },
+    {
+        "content": "<p>Huh, looks like <code>MPItrampoline_jll.is_available() == false</code> on my system.. I wonder how similar the MPItrampoline libmpi interface is to the MPICH one -- since currently I've been targeting that</p>",
+        "id": 290710000,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1658712537
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "content": "<p>Does anybody knows if it's possible to somehow dispatch with <a href=\"https://github.com/search?q=ScientificTypes.jl&amp;type=Repositories\">ScientificTypes.jl</a>?  I mean, I wanted to do something like <code>function dosomething(x::Continuous)</code>, which does not work.</p>",
+        "id": 269161513,
+        "sender_full_name": "Davi Sales Barreira",
+        "timestamp": 1643053186
+    },
+    {
+        "content": "<p>It is possible and we use it in downstream packages. What exactly are you trying to achieve with dispatch?</p>",
+        "id": 269161846,
+        "sender_full_name": "Júlio Hoffimann",
+        "timestamp": 1643053326
+    },
+    {
+        "content": "<p>You can find examples of dispatch in <a href=\"https://github.com/search?q=TableDistances.jl&amp;type=Repositories\">TableDistances.jl</a>: <a href=\"https://github.com/JuliaML/TableDistances.jl/blob/deaf10257ce1de34137ad7829391b8bf22817746/src/distances.jl#L27-L32\">https://github.com/JuliaML/TableDistances.jl/blob/deaf10257ce1de34137ad7829391b8bf22817746/src/distances.jl#L27-L32</a></p>",
+        "id": 269161945,
+        "sender_full_name": "Júlio Hoffimann",
+        "timestamp": 1643053369
+    },
+    {
+        "content": "<p>You can do it with separate arguments, e.g.</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">function</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Continuous</span><span class=\"p\">},</span> <span class=\"n\">x</span><span class=\"o\">::</span><span class=\"kt\">Real</span><span class=\"p\">)</span>\n<span class=\"k\">end</span>\n\n<span class=\"k\">function</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Count</span><span class=\"p\">},</span> <span class=\"n\">x</span><span class=\"o\">::</span><span class=\"kt\">Real</span><span class=\"p\">)</span>\n<span class=\"k\">end</span>\n\n\n<span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">elscitype</span><span class=\"p\">(</span><span class=\"n\">v</span><span class=\"p\">),</span> <span class=\"n\">v</span><span class=\"p\">[</span><span class=\"mi\">1</span><span class=\"p\">])</span>\n</code></pre></div>",
+        "id": 269162037,
+        "sender_full_name": "Expanding Man",
+        "timestamp": 1643053421
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"273172\">Júlio Hoffimann</span> <a href=\"#narrow/stream/274208-helpdesk-.28published.29/topic/Dispatching.20on.20ScientificTypes/near/269161846\">said</a>:</p>\n<blockquote>\n<p>It is possible and we use it in downstream packages. What exactly are you trying to achieve with dispatch?</p>\n</blockquote>\n<p>I'm coding a plotting package, and I was using it to infer the datatype as Ordinal, Continuous or Nominal (per VegaLite standards.</p>",
+        "id": 269162351,
+        "sender_full_name": "Davi Sales Barreira",
+        "timestamp": 1643053530
+    },
+    {
+        "content": "<p>Would love to see plot recipes all taking scitypes into account. That has been a dream of mine for a while.</p>",
+        "id": 269162482,
+        "sender_full_name": "Júlio Hoffimann",
+        "timestamp": 1643053573
+    },
+    {
+        "content": "<p>This is known as trait based dispatch.</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">using</span> <span class=\"n\">ScientificTypes</span>\n\n<span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">x</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">scitype</span><span class=\"p\">(</span><span class=\"n\">x</span><span class=\"p\">),</span> <span class=\"n\">x</span><span class=\"p\">)</span>\n\n<span class=\"n\">f</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Continuous</span><span class=\"p\">},</span> <span class=\"n\">x</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"n\">x</span> <span class=\"o\">+</span> <span class=\"mi\">1</span>\n<span class=\"n\">f</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Type</span><span class=\"p\">{</span><span class=\"kt\">Count</span><span class=\"p\">},</span> <span class=\"n\">x</span><span class=\"p\">)</span> <span class=\"o\">=</span> <span class=\"n\">x</span> <span class=\"o\">-</span> <span class=\"mi\">1</span>\n</code></pre></div>\n<div class=\"codehilite\" data-code-language=\"Julia console\"><pre><span></span><code><span class=\"gp\">julia&gt;</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"mf\">1.0</span><span class=\"p\">)</span>\n<span class=\"go\">2.0</span>\n\n<span class=\"gp\">julia&gt;</span> <span class=\"n\">f</span><span class=\"p\">(</span><span class=\"mi\">1</span><span class=\"p\">)</span>\n<span class=\"go\">0</span>\n</code></pre></div>",
+        "id": 269162498,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1643053578
+    }
+]

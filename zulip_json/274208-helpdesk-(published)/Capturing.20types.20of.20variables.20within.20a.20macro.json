@@ -1,0 +1,50 @@
+[
+    {
+        "content": "<p>Say I want to write a macro</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"nd\">@foo</span><span class=\"w\"> </span><span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">a</span><span class=\"p\">,</span><span class=\"n\">b</span><span class=\"p\">,</span><span class=\"n\">c</span><span class=\"p\">)</span><span class=\"w\"></span>\n</code></pre></div>\n<p>that captures and modifies a function call <code>f(a,b,c)</code>. Is there any way to get the types of the arguments <code>a</code>,<code>b</code>, etc. within the macro?</p>",
+        "id": 284939518,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1654294992
+    },
+    {
+        "content": "<p>Within the macro they're all just <code>Symbol</code>s within the captured Expr, so I can't just use <code>typeof</code> directly...</p>",
+        "id": 284939833,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1654295268
+    },
+    {
+        "content": "<p>The only way I can think of is something along the lines of </p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">macro</span><span class=\"w\"> </span><span class=\"n\">bad_form</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"n\">argtypes</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"n\">ntuple</span><span class=\"p\">(</span><span class=\"n\">i</span><span class=\"o\">-&gt;</span><span class=\"n\">typeof</span><span class=\"p\">(</span><span class=\"n\">eval</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"o\">.</span><span class=\"n\">args</span><span class=\"p\">[</span><span class=\"n\">i</span><span class=\"o\">+</span><span class=\"mi\">1</span><span class=\"p\">])),</span><span class=\"w\"> </span><span class=\"n\">length</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"o\">.</span><span class=\"n\">args</span><span class=\"p\">)</span><span class=\"o\">-</span><span class=\"mi\">1</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"o\">:</span><span class=\"p\">(</span><span class=\"o\">$</span><span class=\"n\">argtypes</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"k\">end</span><span class=\"w\"></span>\n</code></pre></div>",
+        "id": 284939859,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1654295282
+    },
+    {
+        "content": "<div class=\"codehilite\" data-code-language=\"Julia console\"><pre><span></span><code><span class=\"gp\">julia&gt;</span><span class=\"w\"> </span><span class=\"n\">a</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"n\">b</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"n\">c</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"mi\">1</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"mf\">2.0</span><span class=\"p\">,</span><span class=\"w\"> </span><span class=\"mi\">3</span><span class=\"o\">//</span><span class=\"mi\">4</span><span class=\"w\"></span>\n<span class=\"go\">(1, 2.0, 3//4)</span>\n\n<span class=\"gp\">julia&gt;</span><span class=\"w\"> </span><span class=\"nd\">@bad_form</span><span class=\"w\"> </span><span class=\"n\">f</span><span class=\"p\">(</span><span class=\"n\">a</span><span class=\"p\">,</span><span class=\"n\">b</span><span class=\"p\">,</span><span class=\"n\">c</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"go\">(Int64, Float64, Rational{Int64})</span>\n</code></pre></div>\n<p>which works in global scope but is a massive code smell AFAIU</p>",
+        "id": 284939935,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1654295343
+    },
+    {
+        "content": "<p>N.b. I can't do something like</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">macro</span><span class=\"w\"> </span><span class=\"n\">good_form_but_not_helpful</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"o\">:</span><span class=\"p\">(</span><span class=\"n\">typeof</span><span class=\"p\">(</span><span class=\"o\">$</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"o\">.</span><span class=\"n\">args</span><span class=\"p\">[</span><span class=\"mi\">2</span><span class=\"p\">])))</span><span class=\"w\"></span>\n<span class=\"k\">end</span><span class=\"w\"></span>\n</code></pre></div>\n<p>because I need access to the types within the body of the macro</p>",
+        "id": 284940222,
+        "sender_full_name": "Brenhin Keller",
+        "timestamp": 1654295632
+    },
+    {
+        "content": "<p>No, you cannot do this</p>",
+        "id": 284942690,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1654297614
+    },
+    {
+        "content": "<p>The only real way is with a generated function</p>",
+        "id": 284942714,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1654297641
+    },
+    {
+        "content": "<p>e.g.</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">macro</span><span class=\"w\"> </span><span class=\"n\">foo</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">     </span><span class=\"n\">some_data</span><span class=\"w\"> </span><span class=\"o\">=</span><span class=\"w\"> </span><span class=\"n\">extract_info</span><span class=\"p\">(</span><span class=\"n\">expr</span><span class=\"p\">)</span><span class=\"w\"></span>\n<span class=\"w\">     </span><span class=\"o\">:</span><span class=\"p\">(</span><span class=\"o\">$</span><span class=\"n\">foo</span><span class=\"p\">(</span><span class=\"o\">$</span><span class=\"n\">some_data</span><span class=\"p\">))</span><span class=\"w\"></span>\n<span class=\"k\">end</span><span class=\"w\"></span>\n\n<span class=\"nd\">@generated</span><span class=\"w\"> </span><span class=\"k\">function</span><span class=\"w\"> </span><span class=\"n\">foo</span><span class=\"p\">(</span><span class=\"n\">some_data</span><span class=\"o\">::</span><span class=\"kt\">T</span><span class=\"p\">)</span><span class=\"w\"> </span><span class=\"k\">where</span><span class=\"w\"> </span><span class=\"p\">{</span><span class=\"kt\">T</span><span class=\"p\">}</span><span class=\"w\"></span>\n<span class=\"w\">    </span><span class=\"c\"># code generation dending on T here</span><span class=\"w\"></span>\n<span class=\"k\">end</span><span class=\"w\"></span>\n</code></pre></div>",
+        "id": 284942811,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1654297733
+    }
+]

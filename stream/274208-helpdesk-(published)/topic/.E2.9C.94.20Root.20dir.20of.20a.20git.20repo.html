@@ -1,0 +1,37 @@
+<html>
+<head><meta charset="utf-8"><title>✔ Root dir of a git repo · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Root.20dir.20of.20a.20git.20repo.html">✔ Root dir of a git repo</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="284629151"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Root%20dir%20of%20a%20git%20repo/near/284629151" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Root.20dir.20of.20a.20git.20repo.html#284629151">(Jun 01 2022 at 15:39)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="274361">Martin Roa</span> has marked this topic as resolved.</p>
+
+
+
+<a name="284644275"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Root%20dir%20of%20a%20git%20repo/near/284644275" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Gunnar Farnebäck <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Root.20dir.20of.20a.20git.20repo.html#284644275">(Jun 01 2022 at 17:35)</a>:</h4>
+<p><code>git rev-parse --show-prefix</code> tells you where you are relative to the repository root.</p>
+
+
+
+<a name="284644982"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Root%20dir%20of%20a%20git%20repo/near/284644982" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Martin Roa <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Root.20dir.20of.20a.20git.20repo.html#284644982">(Jun 01 2022 at 17:41)</a>:</h4>
+<p>Didn't know about that one. Thanks.</p>
+
+
+
+<a name="284710486"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Root%20dir%20of%20a%20git%20repo/near/284710486" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sundar R <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-(published)/topic/.E2.9C.94.20Root.20dir.20of.20a.20git.20repo.html#284710486">(Jun 02 2022 at 07:45)</a>:</h4>
+<p>There's also <code>git rev-parse --show-toplevel</code> which returns the root dir of the repo as an absolute path. This would also work in the (unusual) case that someone doesn't have a <code>.git</code> directory and has <code>GIT_DIR</code> and <code>GIT_WORK_TREE</code> defined instead (or the equivalent cli options enabled).</p>
+
+
+
+<hr><p>Last updated: Jul 25 2022 at 07:35 UTC</p>
+</html>

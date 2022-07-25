@@ -1,0 +1,32 @@
+[
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"272771\">Andrey Oskin</span> has marked this topic as resolved.</p>",
+        "id": 272785169,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1645526281
+    },
+    {
+        "content": "<p>You can have preferences stored in your default environments Project.toml or a LocalPreferences.toml at the same location. The only drawback is that the package for which you want to record preferences has to be added to that environment.<br>\nSo</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"k\">using</span> <span class=\"n\">Preferences</span>\n<span class=\"k\">using</span> <span class=\"n\">Example</span>\n<span class=\"n\">set_preferences!</span><span class=\"p\">(</span><span class=\"n\">Example</span><span class=\"p\">,</span> <span class=\"s\">\"foo\"</span> <span class=\"o\">=&gt;</span> <span class=\"s\">\"bar\"</span><span class=\"p\">)</span>\n</code></pre></div>\n<p>stores it in ~/.julia/environments/v1.7/LocalPreferences.toml.<br>\nThis can then be loaded using <code>load_preference(Example, \"foo\")</code> which will traverse the LOAD_PATH to look for stored preferences.</p>",
+        "id": 272825470,
+        "sender_full_name": "Felix Kastner",
+        "timestamp": 1645546307
+    },
+    {
+        "content": "<p>It will read from <code>~/.julia/environments/v1.7/LocalPreferences.toml</code> even when I start Julia with <code>--project=.</code> flag? It's going hierarchically? If it can't find local preferences in current directory it will read from global? If yes, it can make this approach more interesting (of course min 1.6 is still a huge drawback)</p>",
+        "id": 272831965,
+        "sender_full_name": "Andrey Oskin",
+        "timestamp": 1645548739
+    },
+    {
+        "content": "<p>I guess I should just try it and see how it goes.</p>",
+        "id": 272832085,
+        "sender_full_name": "Andrey Oskin",
+        "timestamp": 1645548778
+    },
+    {
+        "content": "<p>Yes, that should work. Since Julia versions &lt; 1.6 are not supported versions anymore I don't think it is a drawback really.</p>",
+        "id": 272832169,
+        "sender_full_name": "Fredrik Ekre",
+        "timestamp": 1645548802
+    }
+]

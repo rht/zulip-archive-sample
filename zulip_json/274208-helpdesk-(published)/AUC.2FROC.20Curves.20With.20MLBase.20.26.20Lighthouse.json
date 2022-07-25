@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p><span class=\"user-mention\" data-user-id=\"269184\">@Eric Hanson</span> </p>\n<p>Do you know how to apply <br>\nbinary_statistics (C, precision)? </p>\n<p>I have added the function <a href=\"https://github.com/beacon-biosignals/Lighthouse.jl/blob/779c4b16324d574646e869e928e4eae48ceb5e16/src/metrics.jl#L38-L58\">HERE</a> to my <br>\nprocess cells in Pluto. </p>\n<p>But keep returning the error:</p>\n<div class=\"codehilite\" data-code-language=\"Julia\"><pre><span></span><code><span class=\"kt\">MethodError</span><span class=\"o\">:</span> <span class=\"n\">no</span> <span class=\"n\">method</span> <span class=\"n\">matching</span> <span class=\"n\">binary_statistics</span><span class=\"p\">(</span><span class=\"o\">::</span><span class=\"kt\">Matrix</span><span class=\"p\">{</span><span class=\"kt\">Int64</span><span class=\"p\">},</span> <span class=\"o\">::</span><span class=\"n\">typeof</span><span class=\"p\">(</span><span class=\"n\">precision</span><span class=\"p\">))</span>\n</code></pre></div>",
+        "id": 246666644,
+        "sender_full_name": "QuBit",
+        "timestamp": 1626827225
+    }
+]
