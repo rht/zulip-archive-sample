@@ -1,0 +1,20 @@
+[
+    {
+        "content": "<p>There probably isn't a better way than the f function, if it used views.<br>\nOr you can use <a href=\"https://juliahub.com/ui/Packages/General/StringViews\">StringViews.jl</a> which are mutable</p>",
+        "id": 444616263,
+        "sender_full_name": "Jakob Nybo Nissen",
+        "timestamp": 1718341641
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"455681\">Leandro Martínez</span> has marked this topic as resolved.</p>",
+        "id": 444680963,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1718364963
+    },
+    {
+        "content": "<p>Thanks all for the alternatives and tips. My use case is simple enough so that I will just keep the simple function for now.</p>",
+        "id": 444681126,
+        "sender_full_name": "Leandro Martínez",
+        "timestamp": 1718365034
+    }
+]
