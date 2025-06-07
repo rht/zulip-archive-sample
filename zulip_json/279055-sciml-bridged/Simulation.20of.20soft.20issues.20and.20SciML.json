@@ -1,0 +1,38 @@
+[
+    {
+        "content": "<p>There is thread on <a href=\"https://discourse.julialang.org/t/primer-feasibility-question-modelling-soft-tissue-behavior-using-ml/76175\">Discourse</a> about proof of concept real time simulator of surgery of soft tissues and whatever Julia can be used for it. Unfortunately, no one of us have competence about this topic, person that ask is new to Julia, can someone from SciML take a look at comment current state of discussion?</p>",
+        "id": 278537239,
+        "sender_full_name": "Kamil Ziemian",
+        "timestamp": 1649675154
+    },
+    {
+        "content": "<p>He would be grateful by even few words from someone that have true knowledge about SciML.</p>",
+        "id": 278537390,
+        "sender_full_name": "Kamil Ziemian",
+        "timestamp": 1649675238
+    },
+    {
+        "content": "<p>Those comments are so weird that I've read it and purposefully stayed out of it.</p>",
+        "id": 278573182,
+        "sender_full_name": "Christopher Rackauckas",
+        "timestamp": 1649691706
+    },
+    {
+        "content": "<p>I appologize if my comments are werid. I try to make them as clear as I can.</p>",
+        "id": 279680238,
+        "sender_full_name": "Kamil Ziemian",
+        "timestamp": 1650547832
+    },
+    {
+        "content": "<p>Yours aren't. The OPs are.</p>",
+        "id": 279689393,
+        "sender_full_name": "Christopher Rackauckas",
+        "timestamp": 1650552204
+    },
+    {
+        "content": "<p>It's like, yeah... wtf do you even want? <span aria-label=\"laughing\" class=\"emoji emoji-1f606\" role=\"img\" title=\"laughing\">:laughing:</span></p>",
+        "id": 279689406,
+        "sender_full_name": "Christopher Rackauckas",
+        "timestamp": 1650552213
+    }
+]
