@@ -1,0 +1,152 @@
+<html>
+<head><meta charset="utf-8"><title>How to hande large number of return types? · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html">How to hande large number of return types?</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="558761826"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558761826" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558761826">(Nov 21 2025 at 22:36)</a>:</h4>
+<p>The compiler gives up  type inference when the number of return types is large:</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="kt">Int64</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="kt">Int32</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="kt">Int16</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">    </span><span class="kt">Int8</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="kt">UInt64</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">6</span>
+<span class="w">    </span><span class="kt">UInt32</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">7</span>
+<span class="w">    </span><span class="kt">UInt16</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">    </span><span class="kt">UInt8</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">9</span>
+<span class="w">    </span><span class="kt">Float64</span>
+<span class="w">  </span><span class="k">elseif</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">    </span><span class="kt">Float32</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">error</span><span class="p">(</span><span class="s">"Unsupported code"</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nd">@code_warntype</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">MethodInstance</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="o">::</span><span class="kt">Int64</span><span class="p">)</span>
+<span class="w">  </span><span class="n">from</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">Main</span><span class="w"> </span><span class="n">REPL</span><span class="p">[</span><span class="mi">35</span><span class="p">]</span><span class="o">:</span><span class="mi">1</span>
+<span class="n">Arguments</span>
+<span class="w">  </span><span class="c">#self#::Core.Const(Main.f)</span>
+<span class="w">  </span><span class="n">i</span><span class="o">::</span><span class="kt">Int64</span>
+<span class="n">Body</span><span class="o">::</span><span class="kt">Type</span>
+</code></pre></div>
+<p>However, I have an application that needs to support that many number types. What can we do to workaround this compiler limitation?</p>
+
+
+
+<a name="558762235"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558762235" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558762235">(Nov 21 2025 at 22:41)</a>:</h4>
+<p>I know the union-splitting trick in the calling function when it needs to deal with a subset of types:</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="c"># union-splitting optimization reduces</span>
+<span class="w">  </span><span class="c"># the number of possible branches to</span>
+<span class="w">  </span><span class="c"># help the compiler perform inference</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Float64</span>
+<span class="w">    </span><span class="s">"float64"</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="s">"other"</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+
+
+<a name="558762283"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558762283" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558762283">(Nov 21 2025 at 22:42)</a>:</h4>
+<p>Any other solution?</p>
+
+
+
+<a name="558763904"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558763904" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> cschen <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558763904">(Nov 21 2025 at 23:01)</a>:</h4>
+<p>Have you tried with a sum type package? SumTypes, LightSumTypes, Moshi, WrappedUnions for example?</p>
+
+
+
+<a name="558763974"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558763974" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558763974">(Nov 21 2025 at 23:02)</a>:</h4>
+<p>Never used it. Any recommendation from the list of packages?</p>
+
+
+
+<a name="558764160"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558764160" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558764160">(Nov 21 2025 at 23:05)</a>:</h4>
+<p>Related question: could <code>Val{T}</code> help in this situation?</p>
+
+
+
+<a name="558764220"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558764220" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> cschen <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558764220">(Nov 21 2025 at 23:05)</a>:</h4>
+<p>I’ve been using WrappedUnions recently to try it out. It’s from the same author of LightSumTypes and he thinks it should be the successor but I think is not as well trodden as LightSumTypes. WrappedUnions is pretty barebones though. SumTypes or Moshi might have a bit more niceties</p>
+
+
+
+<a name="558764387"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558764387" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> cschen <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558764387">(Nov 21 2025 at 23:07)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="273172">Júlio Hoffimann</span> <a href="#narrow/channel/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F/near/558764160">said</a>:</p>
+<blockquote>
+<p>Related question: could <code>Val{T}</code> help in this situation?</p>
+</blockquote>
+<p>You’d need to have the Val be really a compile time value. Otherwise you’re just moving the type instability around.</p>
+
+
+
+<a name="558764973"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558764973" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558764973">(Nov 21 2025 at 23:13)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="921827">cschen</span> <a href="#narrow/channel/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F/near/558764220">said</a>:</p>
+<blockquote>
+<p>I’ve been using WrappedUnions recently to try it out. It’s from the same author of LightSumTypes and he thinks it should be the successor but I think is not as well trodden as LightSumTypes. WrappedUnions is pretty barebones though. SumTypes or Moshi might have a bit more niceties</p>
+</blockquote>
+<p>I will experiment <a href="https://juliaregistries.github.io/General/packages/redirect_to_repo/SumTypes">SumTypes.jl</a> and <a href="https://juliaregistries.github.io/General/packages/redirect_to_repo/LightSumTypes">LightSumTypes.jl</a></p>
+
+
+
+<a name="558765238"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558765238" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558765238">(Nov 21 2025 at 23:17)</a>:</h4>
+<p><span class="user-mention" data-user-id="921827">@cschen</span> how would you rewrite the function <code>f</code> in terms of <a href="https://juliaregistries.github.io/General/packages/redirect_to_repo/SumTypes">SumTypes.jl</a> for example? I see that the <code>@sum_types</code> macro expects symbols as the options, but in this case we have integer literals.</p>
+
+
+
+<a name="558765696"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558765696" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> cschen <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558765696">(Nov 21 2025 at 23:23)</a>:</h4>
+<p>The ideai had was to have the function return always the same sumtype containing different variants. You would then have to union split on the resulting argument.<br>
+Can’t go much into the details as I both am not so handy with SumTypes and Am not at the keyboard either :)</p>
+
+
+
+<a name="558766106"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558766106" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Júlio Hoffimann <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558766106">(Nov 21 2025 at 23:28)</a>:</h4>
+<p>Yes, I am just finding it difficult to create such sum type in this case. Tried reading the examples in <a href="https://juliaregistries.github.io/General/packages/redirect_to_repo/SumTypes">SumTypes.jl</a> and <a href="https://juliaregistries.github.io/General/packages/redirect_to_repo/LightSumTypes">LightSumTypes.jl</a> but still can't figure it out.</p>
+
+
+
+<a name="558770239"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20hande%20large%20number%20of%20return%20types%3F/near/558770239" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Daniel Wennberg <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F.html#558770239">(Nov 22 2025 at 00:21)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="273172">Júlio Hoffimann</span> <a href="#narrow/channel/274208-helpdesk-.28published.29/topic/How.20to.20hande.20large.20number.20of.20return.20types.3F/near/558761826">said</a>:</p>
+<blockquote>
+<p>What can we do to workaround this compiler limitation?</p>
+</blockquote>
+<p>Accept that there will be a dynamic dispatch here (because you're literally dynamically dispatching on the runtime value of <code>i</code>), and use function barriers to contain the type instability.</p>
+
+
+
+<hr><p>Last updated: Nov 22 2025 at 04:42 UTC</p>
+</html>
