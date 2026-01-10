@@ -1,0 +1,20 @@
+[
+    {
+        "content": "<p>I'm develop a package that produces visualizations. Most of my (informal) testing has been using a notebook to generate visualizations, and then constantly checking if things are still in order. <br>\nI was wondering if there is any Julia package (or testing design strategy) for such situation. Perhaps comparing the SVG output to see if it matches (this seems highly innapropriate)?</p>",
+        "id": 429212466,
+        "sender_full_name": "Davi Sales Barreira",
+        "timestamp": 1711290750
+    },
+    {
+        "content": "<p>Depending on how much run-to-run variance you expect in these visualizations, <a href=\"https://github.com/JuliaTesting/ReferenceTests.jl\">https://github.com/JuliaTesting/ReferenceTests.jl</a> may help</p>",
+        "id": 429219639,
+        "sender_full_name": "Brian Chen",
+        "timestamp": 1711293984
+    },
+    {
+        "content": "<p>Can you explain what you don't like about comparing the svg output? Which aspects of a figure do you expect to be preserved across runs?</p>",
+        "id": 429236922,
+        "sender_full_name": "jar",
+        "timestamp": 1711306732
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>After recent updates I lost a very handy feature of the VSCode Julia extension: it recognized the module of the current file upon restart with Alt+J+Alt+R.</p>\n<p>Do you know if there is a setting that can be set to automatically restart the REPL in the current module?</p>",
+        "id": 567112614,
+        "sender_full_name": "Júlio Hoffimann",
+        "timestamp": 1767954932
+    },
+    {
+        "content": "<p>I have multiple modules opened in my VSCode Workspace and it is always restarting the REPL in the first module of the list. The previous behavior saved a lot of time, and I used it quite often to speed up development of multiple packages.</p>",
+        "id": 567112772,
+        "sender_full_name": "Júlio Hoffimann",
+        "timestamp": 1767954990
+    }
+]
