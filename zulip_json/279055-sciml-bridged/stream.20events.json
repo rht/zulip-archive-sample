@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>Stream created by <span class=\"user-mention silent\" data-user-id=\"269150\">Mason Protter</span>.</p>",
+        "id": 227865727,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1614301066
+    },
+    {
+        "content": "<p><span class=\"user-mention silent\" data-user-id=\"269150\">Mason Protter</span> changed the <a href=\"/help/stream-permissions\">access permissions</a> for this stream from <strong>Public</strong> to <strong>Web-public</strong>.</p>",
+        "id": 289716619,
+        "sender_full_name": "Notification Bot",
+        "timestamp": 1657885843
+    }
+]

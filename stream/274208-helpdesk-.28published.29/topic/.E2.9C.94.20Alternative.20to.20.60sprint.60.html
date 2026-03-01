@@ -1,0 +1,50 @@
+<html>
+<head><meta charset="utf-8"><title>✔ Alternative to `sprint` · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html">✔ Alternative to `sprint`</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="430923470"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Alternative%20to%20%60sprint%60/near/430923470" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Gunnar Farnebäck <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html#430923470">(Apr 03 2024 at 05:47)</a>:</h4>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read</span><span class="p">(</span><span class="n">pipeline</span><span class="p">(</span><span class="kt">IOBuffer</span><span class="p">(</span><span class="s">"foo bar"</span><span class="p">),</span><span class="w"> </span><span class="sb">`cat`</span><span class="p">),</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+<span class="s">"foo bar"</span>
+</code></pre></div>
+
+
+
+<a name="430923781"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Alternative%20to%20%60sprint%60/near/430923781" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Gunnar Farnebäck <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html#430923781">(Apr 03 2024 at 05:51)</a>:</h4>
+<p>Btw, a <code>seekstart(cin)</code> in your previous example had accomplished the same thing.</p>
+
+
+
+<a name="431118560"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Alternative%20to%20%60sprint%60/near/431118560" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Notification Bot <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html#431118560">(Apr 03 2024 at 15:22)</a>:</h4>
+<p><span class="user-mention silent" data-user-id="486849">Sergio Vargas</span> has marked this topic as resolved.</p>
+
+
+
+<a name="431119839"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Alternative%20to%20%60sprint%60/near/431119839" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Sergio Vargas <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html#431119839">(Apr 03 2024 at 15:28)</a>:</h4>
+<p>Thanks <span class="user-mention" data-user-id="273176">@Gunnar Farnebäck</span> . Neither the docs nor the posts I had read on discourse showed that you could simply pass the <code>IOBuffer</code> as an argument. That's much more convenient than the stdio kwargs.</p>
+
+
+
+<a name="431143908"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/%E2%9C%94%20Alternative%20to%20%60sprint%60/near/431143908" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Gunnar Farnebäck <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/.E2.9C.94.20Alternative.20to.20.60sprint.60.html#431143908">(Apr 03 2024 at 17:39)</a>:</h4>
+<p>The <code>pipeline</code> docstring has some hints:</p>
+<blockquote>
+<p><code>pipeline(from, to)</code> is equivalent to <code>pipeline(from, stdout=to)</code> when <code>from</code><br>
+  is a command, and to <code>pipeline(to, stdin=from)</code> when <code>from</code> is another kind of data<br>
+  source.</p>
+</blockquote>
+
+
+
+<hr><p>Last updated: Mar 01 2026 at 05:35 UTC</p>
+</html>

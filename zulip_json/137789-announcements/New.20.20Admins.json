@@ -1,0 +1,50 @@
+[
+    {
+        "content": "<p>Hi all, I'm pleased to welcome <span class=\"user-mention\" data-user-id=\"269205\">@Chris Foster</span> to the Admin team in this Zulip. That makes the current list of active administrators Chris, <span class=\"user-mention\" data-user-id=\"230816\">@Dilum Aluthge</span>, <span class=\"user-mention\" data-user-id=\"269167\">@Sascha Mann</span>  and myself. </p>\n<p>If you ever need to talk about rules or need help with zulip stuff, feel free to contact us. You can also send a private or public message to <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span> to ping all of us at once.</p>",
+        "id": 195136133,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1587688748
+    },
+    {
+        "content": "<p>Not a new admin, but <span class=\"user-mention\" data-user-id=\"125945\">@Valentin Churavy</span> will be joining us as one of the active admins!</p>",
+        "id": 195484520,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1588027814
+    },
+    {
+        "content": "<p>Hi all! I think I did set this up in '18 ;) It's been a while.</p>",
+        "id": 195484630,
+        "sender_full_name": "Valentin Churavy",
+        "timestamp": 1588027903
+    },
+    {
+        "content": "<p>Hey everyone, <span class=\"user-mention\" data-user-id=\"270680\">@James Fairbanks</span> is going to be joining our admin team! Just a reminder, you can reach the admin team by pinging <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span> in public steams or by sending a  private message to that user group.</p>",
+        "id": 209895119,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1599937322
+    },
+    {
+        "content": "<p><span aria-label=\"tada\" class=\"emoji emoji-1f389\" role=\"img\" title=\"tada\">:tada:</span></p>",
+        "id": 209895153,
+        "sender_full_name": "James Fairbanks",
+        "timestamp": 1599937355
+    },
+    {
+        "content": "<p>Hi everyone, I’d like to welcome <span class=\"user-mention\" data-user-id=\"297100\">@Yingbo Ma</span> to our admin team! Just a reminder that you can get in contact with any of us through direct messages, or all at once with <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span>.</p>",
+        "id": 227618901,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1614181684
+    },
+    {
+        "content": "<p>Welcome <span class=\"user-mention\" data-user-id=\"297100\">@Yingbo Ma</span>! Reminder on that reminder, you can see the list of admins by clicking the <code>@*zulip-admins*</code> link</p>",
+        "id": 227619140,
+        "sender_full_name": "James Fairbanks",
+        "timestamp": 1614181779
+    },
+    {
+        "content": "<p>I’m pleased to announce that <span class=\"user-mention\" data-user-id=\"127226\">@Stefan Karpinski</span> and <span class=\"user-mention\" data-user-id=\"274373\">@Viral B. Shah</span> have joined the admin team! Big welcome to both of you. </p>\n<p>Remember you can contact the admin team by pinging <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span>!</p>",
+        "id": 243188073,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1624036836
+    }
+]

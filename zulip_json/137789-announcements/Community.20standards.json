@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>Hey everyone, this is a regular reminder that we want this Zulip to be a welcoming, civil and constructive environment.<br>\nAny violations of the <a href=\"https://julialang.org/community/standards/\">Julia Community Standards</a> which you agreed to by joining this workspace will be taken seriously by the Zulip admins.</p>\n<p>If you see or experience any violation of those standards, or feel unsafe or upset, please contact us by sending a private message to the <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span> user group.</p>\n<p>You can also contact the <a href=\"https://julialang.org/community/stewards/\">Julia stewards</a> by emailing <a href=\"mailto:stewards@julialang.org\">stewards@julialang.org</a>, in particular if your concern or conflict involves the admins and you would prefer a third party to resolve it.</p>",
+        "id": 212088699,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1601652000
+    },
+    {
+        "content": "<p>Hey all, this is a regular reminder that we want this Zulip to be a welcoming, civil and constructive environment.<br>\nAny violations of the <a href=\"https://julialang.org/community/standards/\">Julia Community Standards</a> which you agreed to by joining this workspace will be taken seriously by the Zulip admins.</p>\n<p><strong>If you see or experience any violation of those standards, or feel unsafe or upset, please contact us by sending a private message to the <span class=\"user-group-mention\" data-user-group-id=\"2598\">@zulip-admins</span> user group.</strong> All communications will be treated confidentially.</p>\n<p>You can also contact the <a href=\"https://julialang.org/community/stewards/\">Julia Stewards</a> by emailing <a href=\"mailto:stewards@julialang.org\">stewards@julialang.org</a>, in particular if your concern or conflict involves the admins and you would prefer a third party to resolve it.</p>\n<hr>\n<p><em>Reposting this because it's been 6 months since the last reminder. A lot of people have joined Zulip since then (welcome! <span aria-label=\"wave\" class=\"emoji emoji-1f44b\" role=\"img\" title=\"wave\">:wave:</span> ) and may not be aware of how to reach the admins.</em></p>",
+        "id": 232842172,
+        "sender_full_name": "Sascha Mann",
+        "timestamp": 1617321732
+    }
+]

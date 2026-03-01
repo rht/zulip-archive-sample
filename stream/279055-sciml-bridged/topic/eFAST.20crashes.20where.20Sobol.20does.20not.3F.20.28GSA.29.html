@@ -1,0 +1,68 @@
+<html>
+<head><meta charset="utf-8"><title>eFAST crashes where Sobol does not? (GSA) · sciml-bridged · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/index.html">sciml-bridged</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html">eFAST crashes where Sobol does not? (GSA)</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="303568337"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303568337" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Ge0rges <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303568337">(Oct 12 2022 at 06:47)</a>:</h4>
+<p>Hi all, </p>
+<p>I am having some trouble executing a global sensitivity analysis using the eFAST method. I have it working fine for Sobol, but get the following error when I simply switch out the Sobol() to eFAST() in the gsa() call. </p>
+<div class="codehilite"><pre><span></span><code>JULIA: ArgumentError: Uniform: the condition a &lt; b is not satisfied.
+@ Distributions ~/.julia/packages/Distributions/7iOJp/src/univariate/continuous/uniform.jl:38
+@ GlobalSensitivity ~/.julia/packages/GlobalSensitivity/jG1Zc/src/eFAST_sensitivity.jl:98
+</code></pre></div>
+
+<p>Any first glance ideas what this means? My project is using PyCall to have python call Julia, so debugging the Julia end is a pain... One thing I will not is that because my ODE often returns near 0 values (on the order of 1e-300), I multiply all its outputs by 1e200. Though this shouldn't make a difference to these methods if my understanding of them is correct. I will also note that from time to time, the samplers find a combination of parameters it doesn't like and aborts a run, this happens once every 4000 simulations with Sobol2007 estimator, roughly.</p>
+
+
+
+<a name="303626040"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303626040" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Christopher Rackauckas <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303626040">(Oct 12 2022 at 13:23)</a>:</h4>
+<p>If you can open an issue with a reproducer that would be helpful.  I'd need to see what the bounds are and what it's sampling.</p>
+
+
+
+<a name="303671476"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303671476" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Ge0rges <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303671476">(Oct 12 2022 at 16:05)</a>:</h4>
+<p>That was my first go-to but my model is so complex I'm trying to think of a simple reproducer I can offer. Will get back to this hopefully soon. I also noticed that many times, the total solo first-order index is not equal to 1 as it should be, weirdly.</p>
+
+
+
+<a name="303682598"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303682598" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Ge0rges <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303682598">(Oct 12 2022 at 17:06)</a>:</h4>
+<p><a href="https://github.com/SciML/GlobalSensitivity.jl/issues/82">https://github.com/SciML/GlobalSensitivity.jl/issues/82</a></p>
+
+
+
+<a name="303690411"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303690411" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Christopher Rackauckas <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303690411">(Oct 12 2022 at 17:48)</a>:</h4>
+<p>Awesome, thanks. <span class="user-mention" data-user-id="274786">@Vaibhav Dixit</span> do you have this one?</p>
+
+
+
+<a name="303963079"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303963079" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Ge0rges <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303963079">(Oct 14 2022 at 04:49)</a>:</h4>
+<p>Please let me know if I can be of nay further assistance with the example code or debugging feedback.</p>
+
+
+
+<a name="303963746"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303963746" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Christopher Rackauckas <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303963746">(Oct 14 2022 at 04:59)</a>:</h4>
+<p>I think that's pretty good</p>
+
+
+
+<a name="303963770"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279055-sciml-bridged/topic/eFAST%20crashes%20where%20Sobol%20does%20not%3F%20%28GSA%29/near/303963770" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Christopher Rackauckas <a href="https://rht.github.io/zulip-archive-sample/stream/279055-sciml-bridged/topic/eFAST.20crashes.20where.20Sobol.20does.20not.3F.20.28GSA.29.html#303963770">(Oct 14 2022 at 05:00)</a>:</h4>
+<p>We have a conference coming up though, so I'm not sure it will happen this week <span aria-label="sweat smile" class="emoji emoji-1f605" role="img" title="sweat smile">:sweat_smile:</span></p>
+
+
+
+<hr><p>Last updated: Mar 01 2026 at 05:35 UTC</p>
+</html>

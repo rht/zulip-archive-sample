@@ -1,0 +1,26 @@
+[
+    {
+        "content": "<p>Is there an easy way to do parameter estimation like <a href=\"https://catalyst.sciml.ai/dev/tutorials/parameter_estimation/\">https://catalyst.sciml.ai/dev/tutorials/parameter_estimation/</a> and get an uncertainty envelope around the fitted trajectory?</p>",
+        "id": 272158877,
+        "sender_full_name": "James Fairbanks",
+        "timestamp": 1645036503
+    },
+    {
+        "content": "<p><span class=\"user-mention\" data-user-id=\"270680\">@James Fairbanks</span> <a href=\"https://turing.ml/dev/tutorials/10-bayesian-differential-equations/\">https://turing.ml/dev/tutorials/10-bayesian-differential-equations/</a></p>",
+        "id": 272258432,
+        "sender_full_name": "Christopher Rackauckas",
+        "timestamp": 1645104584
+    },
+    {
+        "content": "<p>you can sample from the chains to get that envelope</p>",
+        "id": 272258457,
+        "sender_full_name": "Christopher Rackauckas",
+        "timestamp": 1645104598
+    },
+    {
+        "content": "<p>Thanks!</p>",
+        "id": 272295458,
+        "sender_full_name": "James Fairbanks",
+        "timestamp": 1645119536
+    }
+]

@@ -1,0 +1,55 @@
+<html>
+<head><meta charset="utf-8"><title>parameters structural identifiability · diffeq-bridged · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/279054-diffeq-bridged/index.html">diffeq-bridged</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/279054-diffeq-bridged/topic/parameters.20structural.20identifiability.html">parameters structural identifiability</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="307914365"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/279054-diffeq-bridged/topic/parameters%20structural%20identifiability/near/307914365" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Danilo D. <a href="https://rht.github.io/zulip-archive-sample/stream/279054-diffeq-bridged/topic/parameters.20structural.20identifiability.html#307914365">(Nov 04 2022 at 09:34)</a>:</h4>
+<p>Hello<br>
+I'm trying to assess the structural parameter identifiability of a (over)-simplified ode system</p>
+<div class="codehilite" data-code-language="Julia"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">StructuralIdentifiability</span><span class="w"></span>
+
+<span class="n">ode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@ODEmodel</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">G</span><span class="o">'</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">30000.0</span><span class="o">*</span><span class="n">k1</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">k1</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span><span class="w"> </span><span class="o">-</span><span class="w">  </span><span class="n">k2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">G</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="w">                                       </span><span class="c"># gastro-intestinal tract</span><span class="w"></span>
+<span class="w">    </span><span class="n">B</span><span class="o">'</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">k2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">G</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">45.0</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">k3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k5</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">B</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">^</span><span class="mf">2.0</span><span class="p">),</span><span class="w"> </span><span class="c"># blood</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">'</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">k3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="w">                                                                           </span><span class="c"># tissue</span><span class="w"></span>
+<span class="w">    </span><span class="n">y</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w">                                                                                                            </span><span class="c"># observable</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+
+<span class="n">assess_identifiability</span><span class="p">(</span><span class="n">ode</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Is it normal that the package quickly shows its limits for simple cases, as described as below?</strong></p>
+<ul>
+<li>
+<p>the equations implies a algebraic function with explicit <strong>t</strong> independent variable<br>
+    output: <br>
+    ERROR: UndefVarError: t not defined</p>
+</li>
+<li>
+<p>exponential function is detected as a parameter<br>
+    output:<br>
+    [ Info: Summary of the model:                 <br>
+    [ Info: State variables: T, G, B              <br>
+    [ Info: Parameters: k5, k3, exp, k4, k2, k1, f<br>
+    [ Info: Inputs:                               <br>
+    [ Info: Outputs: y                           </p>
+</li>
+<li>
+<p>in a more general way than the previous point, the package does not tolerate parameters as an exponent<br>
+   output (if the exponent is a constant integer):<br>
+   no method matching ^(::Int64, ::Nemo.fmpq_mpoly) <br>
+    output (if the exponent is a symbolic parameter):<br>
+    ^(::Nemo.fmpq_mpoly, ::Nemo.fmpq_mpoly)</p>
+</li>
+</ul>
+
+
+
+<hr><p>Last updated: Mar 01 2026 at 05:35 UTC</p>
+</html>

@@ -1,0 +1,32 @@
+<html>
+<head><meta charset="utf-8"><title>How to test when there are figures? · helpdesk (published) · Zulip Chat Archive</title></head>
+<h2>Stream: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/index.html">helpdesk (published)</a></h2>
+<h3>Topic: <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20test.20when.20there.20are.20figures.3F.html">How to test when there are figures?</a></h3>
+
+<hr>
+
+<base href="https://julialang.zulipchat.com/">
+
+<head><link href="https://rht.github.io/zulip-archive-sample/style.css" rel="stylesheet"></head>
+
+<a name="429212466"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20test%20when%20there%20are%20figures%3F/near/429212466" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Davi Sales Barreira <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20test.20when.20there.20are.20figures.3F.html#429212466">(Mar 24 2024 at 14:32)</a>:</h4>
+<p>I'm develop a package that produces visualizations. Most of my (informal) testing has been using a notebook to generate visualizations, and then constantly checking if things are still in order. <br>
+I was wondering if there is any Julia package (or testing design strategy) for such situation. Perhaps comparing the SVG output to see if it matches (this seems highly innapropriate)?</p>
+
+
+
+<a name="429219639"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20test%20when%20there%20are%20figures%3F/near/429219639" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> Brian Chen <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20test.20when.20there.20are.20figures.3F.html#429219639">(Mar 24 2024 at 15:26)</a>:</h4>
+<p>Depending on how much run-to-run variance you expect in these visualizations, <a href="https://github.com/JuliaTesting/ReferenceTests.jl">https://github.com/JuliaTesting/ReferenceTests.jl</a> may help</p>
+
+
+
+<a name="429236922"></a>
+<h4><a href="https://julialang.zulipchat.com/#narrow/stream/274208-helpdesk%20%28published%29/topic/How%20to%20test%20when%20there%20are%20figures%3F/near/429236922" class="zl"><img src="https://rht.github.io/zulip-archive-sample/assets/img/zulip.svg" alt="view this post on Zulip" style="width:20px;height:20px;"></a> jar <a href="https://rht.github.io/zulip-archive-sample/stream/274208-helpdesk-.28published.29/topic/How.20to.20test.20when.20there.20are.20figures.3F.html#429236922">(Mar 24 2024 at 18:58)</a>:</h4>
+<p>Can you explain what you don't like about comparing the svg output? Which aspects of a figure do you expect to be preserved across runs?</p>
+
+
+
+<hr><p>Last updated: Mar 01 2026 at 05:35 UTC</p>
+</html>
