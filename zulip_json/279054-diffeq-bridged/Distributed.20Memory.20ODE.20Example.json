@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>Hi, I am interested in solving very large ODE problems (which result from PDE semi-discretizations and/or operator splittings). I am wondering how hard it would be to utilize the existing ecosystem, assuming that my problem is so large that I would need a distributed memory implementation (talking about the orders of 1'000'000 to 100'000'000 dimensions in the semi-discretization). Are there any examples?</p>",
+        "id": 228818491,
+        "sender_full_name": "Dennis Ogiermann",
+        "timestamp": 1614880114
+    }
+]

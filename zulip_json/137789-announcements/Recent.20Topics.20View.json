@@ -1,0 +1,8 @@
+[
+    {
+        "content": "<p>I just want to call everyone's attention to a new feature in Zulip called the 'recent topics view', based in part around feedback from Julia community members. </p>\n<p>Check it out at <a href=\"#recent_topics\">https://julialang.zulipchat.com/#recent_topics</a>, by pressing <code>t</code>, or by clicking the little clock at the top Right of the Streams list. Especially if you only visit Zulip intermittently, you may want to bookmark the Recent Topics view because it makes it a lot easier to catch up on conversations you care about, especially because you can filter by topics you participated in.</p>",
+        "id": 202145079,
+        "sender_full_name": "Mason Protter",
+        "timestamp": 1593207103
+    }
+]

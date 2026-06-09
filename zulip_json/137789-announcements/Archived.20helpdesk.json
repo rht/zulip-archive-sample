@@ -1,0 +1,14 @@
+[
+    {
+        "content": "<p>Hey everyone,</p>\n<p>there has been some discussion about creating a searchable archive of helpdesk questions (e.g. in <a class=\"stream-topic\" data-stream-id=\"137793\" href=\"/#narrow/stream/137793-zulip-bridged/topic/Helpdesk.20archival\">#zulip-bridged &gt; Helpdesk archival</a>). I've now implemented what has been discussed there and set up a new stream <a class=\"stream\" data-stream-id=\"274208\" href=\"/#narrow/stream/274208-helpdesk-.28archived.29\">#helpdesk (archived)</a> which is publicly archived on <a href=\"https://juliacommunity.github.io/zulip-archive/\">https://juliacommunity.github.io/zulip-archive/</a> (for now, nicer domain will follow).</p>\n<p>This does <strong>not</strong> affect <a class=\"stream\" data-stream-id=\"225542\" href=\"/#narrow/stream/225542-helpdesk\">#helpdesk</a> in any way.</p>\n<p>If you have a question that others may benefit from, consider posting it in <a class=\"stream\" data-stream-id=\"274208\" href=\"/#narrow/stream/274208-helpdesk-.28archived.29\">#helpdesk (archived)</a> from now on :)</p>",
+        "id": 223354234,
+        "sender_full_name": "Sascha Mann",
+        "timestamp": 1611138397
+    },
+    {
+        "content": "<p>I've you've had Zulip open for a while (longer than ~12 hours) and can't see or join the stream due to an error, try reloading Zulip. If that doesn't fix it, DM me and I can re-add you. </p>\n<p>There's an issue where the stream won't be listed and clicking on the link will show an error that it's private which may be related to Zulip not updating its status properly.</p>\n<p>(Thanks <span class=\"user-mention silent\" data-user-id=\"275223\">Simon Schoelly</span> for reporting it)</p>",
+        "id": 223414464,
+        "sender_full_name": "Sascha Mann",
+        "timestamp": 1611167295
+    }
+]
